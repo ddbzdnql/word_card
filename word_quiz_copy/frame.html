@@ -1,0 +1,337 @@
+<html>
+	<head>
+		<title>GREWord</title>
+		<style>
+			.header{
+				position: fixed;
+				top: 0px;
+				right: 0px;
+				left: 0px;
+				border: 5px solid #A54;
+				background-color: #233;
+				height: 80px;
+			}
+			.add{
+				position: fixed;
+				top: 120px;
+				right: 0px;
+				width: 290px;
+				border: 3px solid #888;
+				line-height: 24px;	
+				padding-left: 2px;
+				padding-bottom: 2px;
+				font-family: "Trebuchet MS", Helvetica, sans-serif;
+				font-size: 17px;
+				background-image: url('vulpix.jpg');
+				background-position: right;
+				background-size: 110px;
+				background-color: white;
+				background-repeat: no-repeat;
+			}
+			.add textarea{
+				vertical-align: text-top;
+				border: 1.5px solid #888;
+			}
+			.add input{
+				border: 1.5px solid #888;
+			}
+			.add button{
+				font-family: "Courier New";
+				width: 180px;
+				font-weight: bold;
+				font-size: 20px;
+				color: white;
+				background-color: #233;
+				border: none;
+				border-top: 3px solid white;
+			}
+			.logo{
+				padding-top: 5px;
+				padding-left: 5px;
+				font-family: "Arial";
+				font-size: 30px;
+				color: white;
+				font-weight: bold;
+			}
+			.navg{
+				color: #AAA;
+			}
+			.navg ul{
+				list-style: none;
+				float: right;
+			}
+			.navg ul li{
+				float: left;
+				list-style: none;
+				padding-right: 10px;
+			}
+			.show{
+				padding-top: 80px;
+				width: 1100px;
+			}
+			.sticker{
+				vertical-align: top;
+				display: inline-block;
+				width: 280px;
+				height: 280px;
+				font-family: "Courier New";
+				font-size: 17px;
+				color: white;
+				margin: 15px;
+				padding-left: 10px;
+				padding-right: 10px;
+				padding-top: 18px;
+				border: 2px solid #888;
+			}
+			.sticker button{
+				border: none;
+				font-family: "Arial";
+				font-size: 18px;
+				color: white;
+				background: none;
+				border: 2px solid white;
+			}
+			.content{
+				display: inline-block;
+				margin: 3px;
+				padding-left: 10px
+			}
+			.sticker_un {
+				vertical-align: top;
+				display: inline-block;
+				width: 280px;
+				height: 280px;
+				font-family: "Courier New";
+				font-size: 45px;
+				color: white;
+				margin: 15px;
+				padding-left: 10px;
+				padding-right: 10px;
+				padding-top: 18px;
+				vertical-align: middle;
+				background-color: black;
+				background-image: url('2.png');
+				background-size: 288px;
+				background-position: bottom;
+				background-repeat: no-repeat;
+				border: 2px solid #888;
+			}
+			.sticker_st{
+				vertical-align: top;
+				display: inline-block;
+				width: 280px;
+				height: 280px;
+				font-family: "Courier New";
+				font-size: 45px;
+				color: red;
+				margin: 15px;
+				padding-left: 10px;
+				padding-right: 10px;
+				padding-top: 18px;
+				vertical-align: middle;
+				background-color: black;
+				background-image: url('rose1.png');
+				background-size: 288px;
+				background-position: bottom;
+				background-repeat: no-repeat;
+				border: 2px solid red;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="header" class="header">
+			<div class="logo">
+				BR-4759 MANUAL PAGE
+			</div>
+			<div class="navg"><ul>
+					<li>Home  </li><li>Quiz  </li><li>Debug  </li>
+				</ul>
+			</div>
+		</div>
+		<br />
+		<div id="add" class="add">Add a new word?<br/>
+			Word: <br/>
+			<input type="text" id="add1_word"><br/>
+			Definition: <br/>
+			<textarea id="add1_def"></textarea><br/>
+			<button type="button" id="add_submit" onclick="addWord()">Input a word</button>
+		</div>
+		<div id="show" class="show"></div>
+		<script>
+			var arr1 = new Array();
+			var arr2 = new Array();
+			var arr3 = new Array();
+			var arr4 = new Array();
+			var co = 0;
+			while(co < 151){
+				arr3[co] = 1;
+				co++;
+			}
+			var flip = 0;
+			var page = "main";
+			var res = "";
+			function generateRequest(){
+				var toRet;
+				try{
+					toRet = new XMLHttpRequest();
+				}
+				catch(e1){
+					try{
+						toRet = new ActiveXObject("Msxm12.XMLHTTP");
+					}
+					catch(e2){
+						try{
+							toRet = new ActiveXObject("Microsoft.XMLHTTP");
+						}
+						catch(e3){
+							toRet = false;
+						}
+					}
+				}
+				return toRet;
+			}
+			function showRequest(act){
+				var ajReq = generateRequest();
+				var res;
+				var str = "";
+				str += "page="+page+"&act="+act;
+				ajReq.onreadystatechange = function(){
+					if (this.readyState == 4 && this.status == 200){
+						console.log(str);						
+						res = this.responseText;
+					
+						if (act == "show"){
+							arr1 = res.split("SPLIT");
+							var count = 0;
+							while(arr1[count]){
+								var coun = 40;
+								var flag = 0;
+								var word = "";
+								while(arr1[count][coun] != '<'){
+									if (flag){
+										word += arr1[count][coun];
+									}
+									if (arr1[count][coun] == ' '){
+										flag = 1;
+									}
+								coun++;
+								}		
+								arr2[count] = word;
+								count++;
+							}
+							count = 0;
+							var divObj = document.getElementById("show");
+							divObj.innerHTML = "";
+							while(arr1[count]){
+								if (arr3[count] == 1){
+									divObj.innerHTML += "<div class='sticker' onclick='flipCard(this)' id='cont"+count+"'>"+arr1[count]+"</div>";
+									if (arr4[count] == 1){
+										document.getElementById('cont'+count).style.background = "#77C";
+									}
+									else{
+										document.getElementById('cont'+count).style.background = "#B66";
+									}
+								}
+								else{
+									if (arr4[count] == 1){
+										divObj.innerHTML += "<div class='sticker_un' onclick='flipCard(this)' id='cont"+count+"'>"+arr2[count]+"</div>";
+									}
+									else{
+										divObj.innerHTML += "<div class='sticker_st' onclick='flipCard(this)' id='cont"+count+"'>"+arr2[count]+"</div>"	
+									}
+								}
+								count ++;
+							}
+						}
+						if (act == "init"){
+							arr4 = res.split("SPLIT");
+							var i = 0;
+							console.log(arr4);
+						}		
+										
+					}
+				}
+				ajReq.open("GET", "response.inc.php?"+str, true);
+				ajReq.send();
+			}
+			function show(){
+				init();
+				init();
+				showRequest("show");
+			}
+			function init(){
+				showRequest("init");
+			}
+			function mark(id, word){
+				showRequest("mark&word="+word);
+				if (arr4[id-1] == 0){
+					arr4[id-1] = 1;
+				}
+				else{
+					arr4[id-1] = 0;
+				}
+				var divObj = document.getElementById('cont'+(id-1));
+				flipCard(divObj);
+				console.log("mark"+'star_'+id);	
+			}
+			function del(id, word){
+				showRequest("del&word="+word);
+				show();
+				show();
+			}
+			function addWord(){
+				var tosen = "add&word="+document.getElementById('add1_word').value
+					+"&def="+document.getElementById('add1_def').value;
+				document.getElementById('add1_word').value = "";
+				document.getElementById('add1_def').value = "";
+				showRequest(tosen);
+				show();
+				show();
+			}
+			function flipCard(divObj){
+				var count = 0;
+				var id = divObj.id;
+				var index = 0;
+				while(id[count]){
+					if (id[count] >= '0' && id[count] <= '9'){
+						index = index * 10 + (id[count] - '0');
+					}
+					count++;
+				}
+				if (arr3[index] == 0){
+					arr3[index] = 1;
+					divObj.className = "sticker";
+					divObj.innerHTML = arr1[index];
+					if (arr4[index] == 1){
+						document.getElementById('star_'+(index+1)).innerHTML = 'learned.';	
+						divObj.style.background = "#77C";
+					}
+					else{
+						document.getElementById('star_'+(index+1)).innerHTML = 'not learned.';
+						divObj.style.background = "#B66";
+					}
+				}
+				else{
+					arr3[index] = 0;
+					divObj.innerHTML = arr2[index];
+					divObj.style="";
+					if (arr4[index] == 1){
+						divObj.className = "sticker_un";
+					}
+					else{
+						divObj.className = "sticker_st";
+					}
+				}
+			}
+			console.log("script!");
+			show();
+			co = 0;
+			while(co < 151){
+				arr3[co] = 0;
+				co++;
+			}
+			show();
+			show();
+		</script>	
+	</body>
+</html>

@@ -257,7 +257,7 @@
 		<div id="show" class="show"></div>
 		<script>
 			var disp = "Total";
-			var limi = 44;
+			var limi = 45;
 			var action = "";
 			function extract(){
 				var a = window.location.href;
@@ -512,6 +512,7 @@
 				console.log(index);
 				if (arr3[index] == 0){
 					arr3[index] = 1;
+					divObj.style.background = '';
 					divObj.className = "sticker";
 					divObj.innerHTML = arr1[index];
 					if (arr4[index] == 1){
@@ -522,11 +523,12 @@
 						document.getElementById('star_'+(index+1)).innerHTML = 'not learned.';
 						divObj.style.background = "#B66";
 					}
+
 				}
 				else{
 					arr3[index] = 0;
 					divObj.innerHTML = arr2[index];
-					divObj.style="";
+					divObj.style.background = "";
 					if (arr4[index] == 1){
 						divObj.className = "sticker_un";
 					}

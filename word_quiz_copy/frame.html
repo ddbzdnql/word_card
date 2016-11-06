@@ -73,13 +73,13 @@
 			.sticker{
 				vertical-align: top;
 				display: inline-block;
-				width: 280px;
+				width: 288px;
 				height: 280px;
 				font-family: "Courier New";
 				font-size: 17px;
 				color: white;
-				margin: 15px;
-				padding-left: 10px;
+				margin: 10px;
+				padding-left: 6px;
 				padding-right: 10px;
 				padding-top: 18px;
 				border: 2px solid #888;
@@ -101,13 +101,13 @@
 			.sticker_un {
 				vertical-align: top;
 				display: inline-block;
-				width: 280px;
+				width: 288px;
 				height: 280px;
 				font-family: "Courier New";
 				font-size: 40px;
 				color: white;
-				margin: 15px;
-				padding-left: 10px;
+				margin: 10px;
+				padding-left: 6px;
 				padding-right: 10px;
 				padding-top: 18px;
 				vertical-align: middle;
@@ -116,18 +116,58 @@
 				background-size: 298px;
 				background-position: bottom;
 				background-repeat: no-repeat;
-				border: 2px solid #888;
+				border: 2px solid #876;
 			}
 			.sticker_st{
 				vertical-align: top;
 				display: inline-block;
-				width: 280px;
+				width: 288px;
 				height: 280px;
 				font-family: "Courier New";
 				font-size: 40px;
 				color: red;
-				margin: 15px;
-				padding-left: 10px;
+				margin: 10px;
+				padding-left: 6px;
+				padding-right: 10px;
+				padding-top: 18px;
+				vertical-align: middle;
+				background-color: black;
+				background-image: url('rose1.png');
+				background-size: 298px;
+				background-position: bottom;
+				background-repeat: no-repeat;
+				border: 2px solid red;
+			}
+			.sticker_un_small {
+				vertical-align: top;
+				display: inline-block;
+				width: 293px;
+				height: 280px;
+				font-family: "Courier New";
+				font-size: 33px;
+				color: white;
+				margin: 10px;
+				padding-left: 1px;
+				padding-right: 10px;
+				padding-top: 18px;
+				vertical-align: middle;
+				background-color: black;
+				background-image: url('2.png');
+				background-size: 298px;
+				background-position: bottom;
+				background-repeat: no-repeat;
+				border: 2px solid #876;
+			}
+			.sticker_st_small{
+				vertical-align: top;
+				display: inline-block;
+				width: 293px;
+				height: 280px;
+				font-family: "Courier New";
+				font-size: 33px;
+				color: red;
+				margin: 10px;
+				padding-left: 1px;
 				padding-right: 10px;
 				padding-top: 18px;
 				vertical-align: middle;
@@ -183,7 +223,7 @@
 			}
 			.jump a{
 				text-decoration: none;
-				text-align: left;
+				text-align: center;
 				padding-right: 7px;
 				font-size: 14px;
 				color: #876;
@@ -217,7 +257,7 @@
 		<div id="show" class="show"></div>
 		<script>
 			var disp = "Total";
-			var limi = 30;
+			var limi = 44;
 			var action = "";
 			function extract(){
 				var a = window.location.href;
@@ -276,9 +316,10 @@
 			}
 			function cutPage(total){
 				var divObj = document.getElementById('jump');
-				divObj.innerHTML = "<div id = 'pag' style='width: 300px;padding-top:180px; text-align: left'>Go to page:<br/></div>";
+				divObj.innerHTML = "<div id = 'pag' style='width: 300px;padding-top:180px; text-align: center'>Go to page:<br/></div>";
 				var count = 1;
 				var divObj1 = document.getElementById('pag');
+				console.log(total);
 				while(count <= total){
 					if (count < 10){
 						tmp = '0' + count;
@@ -289,6 +330,7 @@
 					if (count % 12 == 0){
 						divObj1.innerHTML += "<br/>";
 					}
+					console.log(divObj1.innerHTML);
 					count++;
 				}
 			}
@@ -344,8 +386,7 @@
 								arr2[count] = word;
 								count++;
 							}
-							
-							var length = Math.floor(arr1.length / limi) + 1;
+							var length = Math.floor((count-1) / limi) + 1;
 							if (cut == 1){
 								cutPage(length);
 								cut = 0;
@@ -369,6 +410,9 @@
 									}
 									else{
 										divObj.innerHTML += "<div class='sticker_st' onclick='flipCard(this)' id='cont"+count+"'>"+arr2[count+pageE]+"</div>"	
+									}
+									if (arr2[count+pageE].length > 12){
+										document.getElementById('cont'+count).className += "_small";
 									}
 								}
 								count ++;
@@ -416,12 +460,33 @@
 				update();	
 			}
 			function del(id, word){
+				var leg = (arr1.length - 3) / limi + 1;
+				console.log(leg);
+				cutPage(leg);
 				action = "del";
 				showRequest("del&word="+word);
 				show();
 				show();
 			}
 			function addWord(){
+				var word = document.getElementById('add1_word').value;
+				if (word == "" || word == " "){
+					alert("Invalid word!");
+					document.getElementById('add1_word').value = "";
+					return;
+				}
+				var count = 0;
+				while(count < word.length){
+					if ((word[count] > 'z' || word[count] < 'A')){
+						alert("Invalid word!");
+						document.getElementById('add1_word').value="";
+						return;
+					}
+					count++;
+				}
+				var leg = (arr1.length-1) / limi + 1;
+				console.log(leg);
+				cutPage(leg);
 				action = "add";
 				var tosen = "add&word="+document.getElementById('add1_word').value
 					+"&def="+document.getElementById('add1_def').value;
@@ -429,7 +494,7 @@
 				document.getElementById('add1_def').value = "";
 				showRequest(tosen);
 				show();
-				show();
+				show();				
 			}
 			function flipCard(divObj){
 				var count = 0;
@@ -468,6 +533,10 @@
 					else{
 						divObj.className = "sticker_st";
 					}
+					if (arr2[index].length > 12){
+						divObj.className += "_small";						
+					}
+
 				}
 			}
 			console.log("script!");

@@ -14,12 +14,12 @@
 			.add{
 				position: fixed;
 				top: 120px;
-				right: 0px;
+				right: 5px;
 				width: 290px;
-				border: 3px solid #888;
+				border: none;
 				line-height: 24px;	
-				padding-left: 2px;
-				padding-bottom: 2px;
+				padding-left: 6px;
+				padding-bottom: 4px;
 				font-family: "Trebuchet MS", Helvetica, sans-serif;
 				font-size: 17px;
 				background-image: url('vulpix.jpg');
@@ -87,9 +87,10 @@
 				border: none;
 				font-family: "Arial";
 				font-size: 18px;
+				text-align: middle;
 				color: white;
 				background: none;
-				border: 2px solid white;
+				border: 1px solid white;
 			}
 			.content{
 				display: inline-block;
@@ -102,7 +103,7 @@
 				width: 280px;
 				height: 280px;
 				font-family: "Courier New";
-				font-size: 45px;
+				font-size: 40px;
 				color: white;
 				margin: 15px;
 				padding-left: 10px;
@@ -111,7 +112,7 @@
 				vertical-align: middle;
 				background-color: black;
 				background-image: url('2.png');
-				background-size: 288px;
+				background-size: 290px;
 				background-position: bottom;
 				background-repeat: no-repeat;
 				border: 2px solid #888;
@@ -122,7 +123,7 @@
 				width: 280px;
 				height: 280px;
 				font-family: "Courier New";
-				font-size: 45px;
+				font-size: 40px;
 				color: red;
 				margin: 15px;
 				padding-left: 10px;
@@ -131,10 +132,61 @@
 				vertical-align: middle;
 				background-color: black;
 				background-image: url('rose1.png');
-				background-size: 288px;
+				background-size: 290px;
 				background-position: bottom;
 				background-repeat: no-repeat;
 				border: 2px solid red;
+			}
+			.stat{
+				position: fixed;
+				right: 5px;
+				width: 120px;
+				height: 180px;
+				background-image: url('flareon.png');
+				background-position: left bottom;
+				background-size: 170px;
+				background-repeat: no-repeat;
+				top: 320px;
+				padding-left: 170px;
+				font-family: "Arial";
+				font-size: 21px;
+				font-weight: bold;
+				vertical-align: middle;
+			}
+			.stat div{
+				font-family: "Courier New";
+				font-size: 19px;
+				padding-left: 5px;
+			}
+			.stat button{
+				text-decoration: inherit;
+				font-family: Impact, Charcoal, sans-serif;
+				font-size: 19px;
+				border: none;
+				background: none;
+			}
+			.jump{
+				position: fixed;
+				width: 120px;
+				height: 180px;
+				right: 5px;
+				top: 550px;
+				background-image: url('jump.png');
+				background-position: right bottom;
+				background-repeat: no-repeat;
+				background-size: 170px;
+				padding-right: 170px;
+				font-size: 18px;
+				font-family: "Arial";
+				text-align: center;
+			}
+			.jump a{
+				text-decoration: none;
+				text-align: right;
+				padding-right: 5px;
+				font-size: 16px;
+				color: #777;
+				font-family: "Courier New";
 			}
 		</style>
 	</head>
@@ -148,6 +200,10 @@
 				</ul>
 			</div>
 		</div>
+		<div id="stat" class="stat">
+		</div>
+		<div id="jump" class="jump">
+		</div>
 		<br />
 		<div id="add" class="add">Add a new word?<br/>
 			Word: <br/>
@@ -158,12 +214,38 @@
 		</div>
 		<div id="show" class="show"></div>
 		<script>
+			var disp = "Total";
+			var limi = 42;
+			var action = "";
+			function extract(){
+				var a = window.location.href;
+				var count = 0;
+				var flag = 0;
+				var page = 0;
+				while(a[count]){
+					if (flag){
+						page = page * 10 + (a[count] - '0');
+					}
+					if (a[count] == '='){
+						flag = 1;
+					}
+					count++;
+				}
+				if (page == 0){
+					return 1;
+				}
+				return page;
+			}
+			var page = extract();
+			console.log(page);
+			var length = 0;
+			var pageE = (page-1) * limi;
 			var arr1 = new Array();
 			var arr2 = new Array();
 			var arr3 = new Array();
 			var arr4 = new Array();
 			var co = 0;
-			while(co < 151){
+			while(co < 61){
 				arr3[co] = 1;
 				co++;
 			}
@@ -190,6 +272,44 @@
 				}
 				return toRet;
 			}
+			function cutPage(total){
+				var divObj = document.getElementById('jump');
+				divObj.innerHTML = "Go to page:<br/>";
+				var count = 1;
+				while(count <= total){
+					
+					divObj.innerHTML += ("<a href='/project/word_quiz_copy/frame.html?page="+count+"'>"+count+"</a>");
+					count++;
+				}
+			}
+			function filter(curB){
+				disp = curB.innerHTML;
+				showFilter(disp);
+			}
+			function update(){
+				var sttObj = document.getElementById('stat');
+				sttObj.innerHTML = "";
+				var count = 0, learned = 0;
+				console.log(arr4);
+				console.log(count);
+				while(count < arr4.length){
+					if (arr4[count] == 1){
+						learned ++;
+					}
+					console.log(count);
+					count++;
+				}
+				sttObj.innerHTML += "<button>Total</button> <div>"+(arr1.length-1)+" words</div>";
+				if (disp != 'Unlearned'){
+					sttObj.innerHTML += "<button>Learned</button> <div>"+learned+" words</div>";
+				}
+				if (disp != 'Learned'){
+					sttObj.innerHTML += "<button>Unlearned</button> <div>"+ (arr1.length - learned - 1) +" words</div>";
+				}
+						
+			}
+			var cut = 1;
+			var stt = 1;
 			function showRequest(act){
 				var ajReq = generateRequest();
 				var res;
@@ -197,11 +317,10 @@
 				str += "page="+page+"&act="+act;
 				ajReq.onreadystatechange = function(){
 					if (this.readyState == 4 && this.status == 200){
-						console.log(str);						
 						res = this.responseText;
-					
-						if (act == "show"){
+						if (action == "show" && act != "init"){
 							arr1 = res.split("SPLIT");
+							console.log(arr1);
 							var count = 0;
 							while(arr1[count]){
 								var coun = 40;
@@ -219,13 +338,19 @@
 								arr2[count] = word;
 								count++;
 							}
+							
+							var length = Math.floor(arr1.length / limi) + 1;
+							if (cut == 1){
+								cutPage(length);
+								cut = 0;
+							}
 							count = 0;
 							var divObj = document.getElementById("show");
 							divObj.innerHTML = "";
-							while(arr1[count]){
+							while(arr1[count+pageE] && count < limi){
 								if (arr3[count] == 1){
-									divObj.innerHTML += "<div class='sticker' onclick='flipCard(this)' id='cont"+count+"'>"+arr1[count]+"</div>";
-									if (arr4[count] == 1){
+									divObj.innerHTML += "<div class='sticker' onclick='flipCard(this)' id='cont"+count+"'>"+arr1[count+pageE]+"</div>";
+									if (arr4[count+pageE] == 1){
 										document.getElementById('cont'+count).style.background = "#77C";
 									}
 									else{
@@ -233,20 +358,23 @@
 									}
 								}
 								else{
-									if (arr4[count] == 1){
-										divObj.innerHTML += "<div class='sticker_un' onclick='flipCard(this)' id='cont"+count+"'>"+arr2[count]+"</div>";
+									if (arr4[count+pageE] == 1){
+										divObj.innerHTML += "<div class='sticker_un' onclick='flipCard(this)' id='cont"+count+"'>"+arr2[count+pageE]+"</div>";
 									}
 									else{
-										divObj.innerHTML += "<div class='sticker_st' onclick='flipCard(this)' id='cont"+count+"'>"+arr2[count]+"</div>"	
+										divObj.innerHTML += "<div class='sticker_st' onclick='flipCard(this)' id='cont"+count+"'>"+arr2[count+pageE]+"</div>"	
 									}
 								}
 								count ++;
 							}
+							if (stt == 1){
+								update();
+							}
+								
 						}
 						if (act == "init"){
 							arr4 = res.split("SPLIT");
 							var i = 0;
-							console.log(arr4);
 						}		
 										
 					}
@@ -257,12 +385,18 @@
 			function show(){
 				init();
 				init();
-				showRequest("show");
+				action = "show";
+				showRequest("show&filt=Total");
+			}
+			function showFilter(filt){
+				action = "show";
+				showRequest("show&filt="+filt);
 			}
 			function init(){
 				showRequest("init");
 			}
 			function mark(id, word){
+				action = "mark"
 				showRequest("mark&word="+word);
 				if (arr4[id-1] == 0){
 					arr4[id-1] = 1;
@@ -272,14 +406,17 @@
 				}
 				var divObj = document.getElementById('cont'+(id-1));
 				flipCard(divObj);
-				console.log("mark"+'star_'+id);	
+				console.log("mark"+'star_'+id);
+				update();	
 			}
 			function del(id, word){
+				action = "del";
 				showRequest("del&word="+word);
 				show();
 				show();
 			}
 			function addWord(){
+				action = "add";
 				var tosen = "add&word="+document.getElementById('add1_word').value
 					+"&def="+document.getElementById('add1_def').value;
 				document.getElementById('add1_word').value = "";
@@ -290,14 +427,18 @@
 			}
 			function flipCard(divObj){
 				var count = 0;
+				
 				var id = divObj.id;
 				var index = 0;
-				while(id[count]){
+				console.log(id);
+				while( count < id.length){
 					if (id[count] >= '0' && id[count] <= '9'){
 						index = index * 10 + (id[count] - '0');
 					}
 					count++;
 				}
+				index += pageE;
+				console.log(index);
 				if (arr3[index] == 0){
 					arr3[index] = 1;
 					divObj.className = "sticker";

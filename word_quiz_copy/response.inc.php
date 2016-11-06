@@ -32,30 +32,44 @@ if ($_GET['page'] == 'main'){
 	}
 	if ($act == 'show'){
 		$toRet = "";
-		$query = "SELECT * FROM gre ORDER BY word LIMIT 50";
-		$res = $conn -> query($query);
-		$count = 0;
-		if ($res){
-			while(list($word, $definiton, $star_marked) = mysqli_fetch_array($res, MYSQLI_NUM)){
-				$count++;
-				$toRet .= "Word:<br/> <div class='content' id='word_$count'> $word</div><br/>
-				Definition:<br/> <div class='content' id='def_$count'>$definiton</div><br/>";
-				if ($star_marked=='no'){
-					$toRet .= "Status:<br/><div class='content' id='star_$count'>learned.</div><br/>";
+			if (!is_null($_GET['filt'])){
+				$filt = sanitize($_GET['filt']);
+				if ($filt == 'Learned'){
+					$query = "SELECT * FROM gre WHERE star_marked='no' ORDER BY word;";
 				}
-				else{
-					$toRet .= "Status:<br/> <div class='content' id='star_$count'>not learned.</div><br />";
+				if ($filt == 'Unlearned'){
+					$query = "SELECT * FROM gre WHERE star_marked='yes' ORDER BY word;";	
 				}
-				$toRet .= "<button class='content' type='button' id='mark_$count' onclick='mark($count, &#39;$word&#39;)'>mark</button> ";
-				$toRet .= "<button class='content' tyoe='button' id='change_$count' onclick='change($count, &#39;$word&#39;)'>change</button> ";
-				$toRet .= "<button class='content' type='button' id='del_$count' onclick='del($count, &#39;$word&#39;)'>del</button>";
-				$toRet .= 'SPLIT';
+				if ($filt == 'Total'){
+					$query = "SELECT * FROM gre ORDER BY word;";
+				}
 			}
-			echo $toRet;
-		}
-		else{
-			echo "error occurred during databse connection";
-		}
+			else{
+				$query = "SELECT * FROM gre ORDER BY word;";
+			}
+			$res = $conn -> query($query);
+			$count = 0;
+			if ($res){
+				while(list($word, $definiton, $star_marked) = mysqli_fetch_array($res, MYSQLI_NUM)){
+					$count++;
+					$toRet .= "Word:<br/> <div class='content' id='word_$count'> $word</div><br/>
+					Definition:<br/> <div class='content' id='def_$count'>$definiton</div><br/>";
+					if ($star_marked=='no'){
+						$toRet .= "Status:<br/><div class='content' id='star_$count'>learned.</div><br/>";
+					}
+					else{
+						$toRet .= "Status:<br/> <div class='content' id='star_$count'>not learned.</div><br />";
+					}
+					$toRet .= "<button class='content' type='button' id='mark_$count' onclick='mark($count, &#39;$word&#39;)'>mark</button> ";
+					$toRet .= "<button class='content' tyoe='button' id='change_$count' onclick='change($count, &#39;$word&#39;)'>change</button> ";
+					$toRet .= "<button class='content' type='button' id='del_$count' onclick='del($count, &#39;$word&#39;)'>del</button>";
+					$toRet .= 'SPLIT';
+				}
+				echo $toRet;
+			}
+			else{
+				echo "error occurred during databse connection";
+			}
 	}
 	if ($act == 'mark'){
 		$word = sanitize($_GET['word']);

@@ -3,7 +3,7 @@ word_card_web_application
 
 An application that builds virtual word cards.
 
-######################################Very easy to use therefore not much intro is needed#####################################
+################################Very easy to use therefore not much intro is needed###############################
 
 right upper side is the box for adding word.
 right middle side shows the statistic of current word_list:
@@ -17,4 +17,4 @@ the middle part are the word cards generated from the words saved in local datab
   on complete-definition side, mark button will mark the word back and forth between leanred and not learned
     unlearned words will have red as background color and different image bg for the sole-word-side
     
-############################################As I said, not so much to be explained############################################ 
+######################################As I said, not so much to be explained###################################### 

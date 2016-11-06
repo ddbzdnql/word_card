@@ -15,7 +15,8 @@
 				position: fixed;
 				top: 120px;
 				right: 5px;
-				width: 290px;
+				width: 300px;
+				height: 180px;
 				border: none;
 				line-height: 24px;	
 				padding-left: 6px;
@@ -23,8 +24,8 @@
 				font-family: "Trebuchet MS", Helvetica, sans-serif;
 				font-size: 17px;
 				background-image: url('vulpix.jpg');
-				background-position: right;
-				background-size: 110px;
+				background-position: right top;
+				background-size: 120px;
 				background-color: white;
 				background-repeat: no-repeat;
 			}
@@ -112,7 +113,7 @@
 				vertical-align: middle;
 				background-color: black;
 				background-image: url('2.png');
-				background-size: 290px;
+				background-size: 298px;
 				background-position: bottom;
 				background-repeat: no-repeat;
 				border: 2px solid #888;
@@ -132,7 +133,7 @@
 				vertical-align: middle;
 				background-color: black;
 				background-image: url('rose1.png');
-				background-size: 290px;
+				background-size: 298px;
 				background-position: bottom;
 				background-repeat: no-repeat;
 				border: 2px solid red;
@@ -140,16 +141,16 @@
 			.stat{
 				position: fixed;
 				right: 5px;
-				width: 120px;
+				width: 130px;
 				height: 180px;
 				background-image: url('flareon.png');
 				background-position: left bottom;
 				background-size: 170px;
 				background-repeat: no-repeat;
-				top: 320px;
+				top: 325px;
 				padding-left: 170px;
 				font-family: "Arial";
-				font-size: 21px;
+				font-size: 23px;
 				font-weight: bold;
 				vertical-align: middle;
 			}
@@ -167,12 +168,12 @@
 			}
 			.jump{
 				position: fixed;
-				width: 120px;
+				width: 130px;
 				height: 180px;
 				right: 5px;
-				top: 550px;
+				top: 530px;
 				background-image: url('jump.png');
-				background-position: right bottom;
+				background-position: top;
 				background-repeat: no-repeat;
 				background-size: 170px;
 				padding-right: 170px;
@@ -182,10 +183,11 @@
 			}
 			.jump a{
 				text-decoration: none;
-				text-align: right;
-				padding-right: 5px;
-				font-size: 16px;
-				color: #777;
+				text-align: left;
+				padding-right: 7px;
+				font-size: 14px;
+				color: #876;
+				font-weight: bold;
 				font-family: "Courier New";
 			}
 		</style>
@@ -215,7 +217,7 @@
 		<div id="show" class="show"></div>
 		<script>
 			var disp = "Total";
-			var limi = 42;
+			var limi = 30;
 			var action = "";
 			function extract(){
 				var a = window.location.href;
@@ -274,11 +276,19 @@
 			}
 			function cutPage(total){
 				var divObj = document.getElementById('jump');
-				divObj.innerHTML = "Go to page:<br/>";
+				divObj.innerHTML = "<div id = 'pag' style='width: 300px;padding-top:180px; text-align: left'>Go to page:<br/></div>";
 				var count = 1;
+				var divObj1 = document.getElementById('pag');
 				while(count <= total){
-					
-					divObj.innerHTML += ("<a href='/project/word_quiz_copy/frame.html?page="+count+"'>"+count+"</a>");
+					if (count < 10){
+						tmp = '0' + count;
+						count = tmp;
+					}	
+					divObj1.innerHTML += ("<a href='/project/word_quiz_copy/frame.html?page="+count+"'>"+count);
+					divObj1.innerHTML += "</a>";
+					if (count % 12 == 0){
+						divObj1.innerHTML += "<br/>";
+					}
 					count++;
 				}
 			}
@@ -290,13 +300,10 @@
 				var sttObj = document.getElementById('stat');
 				sttObj.innerHTML = "";
 				var count = 0, learned = 0;
-				console.log(arr4);
-				console.log(count);
 				while(count < arr4.length){
 					if (arr4[count] == 1){
 						learned ++;
 					}
-					console.log(count);
 					count++;
 				}
 				sttObj.innerHTML += "<button>Total</button> <div>"+(arr1.length-1)+" words</div>";
@@ -320,7 +327,6 @@
 						res = this.responseText;
 						if (action == "show" && act != "init"){
 							arr1 = res.split("SPLIT");
-							console.log(arr1);
 							var count = 0;
 							while(arr1[count]){
 								var coun = 40;
@@ -404,7 +410,7 @@
 				else{
 					arr4[id-1] = 0;
 				}
-				var divObj = document.getElementById('cont'+(id-1));
+				var divObj = document.getElementById('cont'+(id-1-pageE));
 				flipCard(divObj);
 				console.log("mark"+'star_'+id);
 				update();	

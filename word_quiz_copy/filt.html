@@ -20,12 +20,12 @@
 				border: 5px solid #A54;
 				background-image: url('bg.jpg');
 				background-size: 108px;
-				height: 80px;
+				height: 95px;
 			}
 			.sidebar{
 				border: 2px solid #444;
 				position: fixed;
-				top: 120px;
+				top: 135px;
 				right: 0px;
 				width: 200px;
 				padding-top: 7px;
@@ -33,10 +33,6 @@
 				padding-bottom: 7px;
 				border-right: 0px;
 				text-align: center;
-				background-image: url('jump.png');
-				background-size: 180px;
-				background-position: center;
-				background-repeat: no-repeat;
 				font-size: 39px;
 				font-family: "Arial";
 				font-weight: bold;
@@ -95,7 +91,7 @@
 				padding-right: 10px;
 			}
 			.show{
-				padding-top: 80px;
+				padding-top: 95px;
 				width: 1100px;
 			}
 			.sticker{
@@ -289,7 +285,7 @@
 
 			.stat{
 				width: 190px;
-				height: 335px;
+				height: 105px;
 
 				top: 325px;
 				font-family: "Arial";
@@ -332,7 +328,10 @@
 	<body>
 		<div id="header" class="header">
 			<div class="logo">
-				BR-4759 MANUAL PAGE
+				BR-4759 MANUAL PAGE &lt;Marked words&gt;
+			</div>
+			<div style="color:white; padding-left: 25px; font-weight: bold; padding-top: 5px">
+				Notice: if you want to go back to the page with all words, click the total in the right sidebar, scroll back is fallible.
 			</div>
 			<div class="navg"><ul>
 					<li>Home  </li><li>Quiz  </li><li>Debug  </li>
@@ -343,18 +342,13 @@
 			Stats:
 			<div id="stat" class="stat">
 			</div>
-			<div id="add" class="add">Add new word:<br/>
-				<input type="text" id="add1_word"><br/>
-				Definition: <br/>
-				<textarea id="add1_def"></textarea><br/>
-				<button type="button" id="add_submit" onclick="addWord()">Submit</button>
-			</div>
 			<div id="jump" class="jump">
+				<img src='jump.png' width=190px></img>
 			</div>
 		</div>
 		<div id="show" class="show"></div>
 		<script>
-			var disp = "Total";
+			var disp = "Unlearned";
 			var limi = 33;
 			var action = "";
 			function extract(){
@@ -414,7 +408,7 @@
 			}
 			function cutPage(total){
 				var divObj = document.getElementById('jump');
-				divObj.innerHTML = "<div id = 'pag' style='padding-top:5px;width: 190px; text-align: center'>Go to page:<br/></div>";
+				divObj.innerHTML += "<div id = 'pag' style='padding-top:5px;width: 190px; text-align: center'>Go to page:<br/></div>";
 				var count = 1;
 				var divObj1 = document.getElementById('pag');
 				console.log(total);
@@ -452,12 +446,12 @@
 					}
 					count++;
 				}
-				sttObj.innerHTML += "<button>Total</button> <div>"+(arr1.length-1)+" words</div>";
+				sttObj.innerHTML += "<a href='frame.html?page=01'><button>Total</button></a> <div>"+(arr1.length-1)+" words</div>";
 				if (disp != 'Unlearned'){
 					sttObj.innerHTML += "<button>Learned</button> <div>"+learned+" words</div>";
 				}
 				if (disp != 'Learned'){
-					sttObj.innerHTML += "<a target = '_blanks' href='filt.html?page=01'><button>Unlearned</button></a> <div style='color:red'>"+ (arr1.length - learned - 1) +" words</div>";
+					sttObj.innerHTML += "<button>Unlearned</button> <div style='color:red'>"+ (arr1.length - learned - 1) +" words</div>";
 				}
 						
 			}
@@ -486,7 +480,7 @@
 				var ajReq = generateRequest();
 				var res;
 				var str = "";
-				str += "page="+pagee+"&act="+act+"&filt=Total";
+				str += "page="+pagee+"&act="+act+"&filt=Unlearned";
 				ajReq.onreadystatechange = function(){
 					if (this.readyState == 4 && this.status == 200){
 						res = this.responseText;
@@ -553,6 +547,7 @@
 						}
 						if (act == "init"){
 							arr4 = res.split("SPLIT");
+							console.log(arr4);
 							var i = 0;
 						}		
 										
@@ -565,13 +560,14 @@
 				init();
 				init();
 				action = "show";
-				showRequest("show&filt=Total");
+				showRequest("show");
 			}
 			function showFilter(filt){
 				action = "show";
-				showRequest("show&filt="+filt);
+				showRequest("show");
 			}
 			function init(){
+				action = "init";
 				showRequest("init");
 			}
 			function mark(id, word){
@@ -681,3 +677,4 @@
 		</script>	
 	</body>
 </html>
+

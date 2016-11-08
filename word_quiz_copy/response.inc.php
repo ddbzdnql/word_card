@@ -32,6 +32,7 @@ if ($_GET['page'] == 'main'){
 	}
 	if ($act == 'show'){
 		$toRet = "";
+		$query = "";
 			if (!is_null($_GET['filt'])){
 				$filt = sanitize($_GET['filt']);
 				if ($filt == 'Learned'){
@@ -108,7 +109,13 @@ if ($_GET['page'] == 'main'){
 		}
 	}
 	if ($act == 'init'){
-		$query = "SELECT star_marked FROM gre ORDER BY word;";
+		$query = "";
+		if (!is_null($_GET['filt']) && $_GET['filt'] == 'Unlearned'){
+			$query = "SELECT star_marked FROM gre WHERE star_marked = 'yes' ORDER BY word;";
+		}
+		else{
+			$query = "SELECT star_marked FROM gre ORDER BY word;";
+		}
 		$res = $conn -> query($query);
 		if ($res){
 			$toRet = "";

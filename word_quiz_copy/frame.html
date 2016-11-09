@@ -22,10 +22,24 @@
 				background-size: 108px;
 				height: 80px;
 			}
+			.footer{
+				position: fixed;
+				height: 70px;
+				border-top: 1px solid #AAA;
+				bottom:0px;
+				left: 10px;
+				right: 10px;
+				background-color: white;
+				text-align: center;
+				display: inline-block;
+				font-size: 9px;
+				color: #888;
+				line-height: 11px;
+			}
 			.sidebar{
 				border: 2px solid #444;
 				position: fixed;
-				top: 120px;
+				top: 100px;
 				right: 0px;
 				width: 200px;
 				padding-top: 7px;
@@ -33,11 +47,7 @@
 				padding-bottom: 7px;
 				border-right: 0px;
 				text-align: center;
-				background-image: url('jump.png');
-				background-size: 180px;
-				background-position: center;
-				background-repeat: no-repeat;
-				font-size: 39px;
+				font-size: 34px;
 				font-family: "Arial";
 				font-weight: bold;
 			}
@@ -46,26 +56,28 @@
 			}
 			.add{
 				width: 190px;
-				height: 150px;
 				border: none;
-				line-height: 38px;	
+				line-height: 33px;	
 				padding-left: 6px;
-				padding-top: 25px;
+				padding-top: 0px;
 				font-family: "Trebuchet MS", Helvetica, sans-serif;
-				font-size: 22px;
+				font-size: 18px;
 			}
 			.add textarea{
 				vertical-align: text-top;
 				border: 1.5px solid #888;
+				height: 60px;
+		
+				margin: 5px;
 			}
 			.add input{
 				border: 1.5px solid #888;
 			}
 			.add button{
-				font-family: "Courier New";
-				width: 150px;
+				font-family: "Arial";
+				width: 165px;
 				font-weight: bold;
-				font-size: 20px;
+				font-size: 24px;
 				color: white;
 				background-color: #233;
 				border: none;
@@ -95,14 +107,15 @@
 				padding-right: 10px;
 			}
 			.show{
-				padding-top: 80px;
+				padding-top: 100px;
 				width: 1100px;
+				padding-bottom: 80px;
 			}
 			.sticker{
 				vertical-align: top;
 				display: inline-block;
 				width: 300px;
-				height: 280px;
+				height: 265px;
 				font-family: "Courier New";
 				font-size: 17px;
 				color: white;
@@ -134,7 +147,7 @@
 				vertical-align: top;
 				display: inline-block;
 				width: 310px;
-				height: 280px;
+				height: 265px;
 				font-family: "Charlemagne Std Bold";
 				font-weight: bold;
 				font-size: 39px;
@@ -160,7 +173,7 @@
 				vertical-align: top;
 				display: inline-block;
 				width: 310px;
-				height: 280px;
+				height: 265px;
 				font-family: "Charlemagne Std Bold";
 				font-weight: bold;
 				font-size: 39px;
@@ -186,7 +199,7 @@
 				vertical-align: top;
 				display: inline-block;
 				width: 310px;
-				height: 280px;
+				height: 265px;
 				font-family: "Charlemagne Std Bold";
 				font-weight: bold;
 				font-size: 34px;
@@ -212,7 +225,7 @@
 				vertical-align: top;
 				display: inline-block;
 				width: 310px;
-				height: 280px;
+				height: 265px;
 				font-family: "Charlemagne Std Bold";
 				font-weight: bold;
 				font-size: 34px;
@@ -238,7 +251,7 @@
 				vertical-align: top;
 				display: inline-block;
 				width: 310px;
-				height: 280px;
+				height: 265px;
 				font-family: "Charlemagne Std Bold";
 				font-weight: bold;
 				font-size: 30px;
@@ -264,7 +277,7 @@
 				vertical-align: top;
 				display: inline-block;
 				width: 310px;
-				height: 280px;
+				height: 265px;
 				font-family: "Charlemagne Std Bold";
 				font-weight: bold;
 				font-size: 30px;
@@ -289,43 +302,42 @@
 
 			.stat{
 				width: 190px;
-				height: 335px;
 
 				top: 325px;
 				font-family: "Arial";
-				font-size: 29px;
+				font-size: 24px;
 				font-weight: bold;
 				vertical-align: middle;
 			}
 			.stat div{
 				font-family: "Courier New";
-				font-size: 26px;
+				font-size: 21px;
 				padding-left: 5px;
 			}
 			.stat button{
 				text-decoration: inherit;
 				font-family: Impact, Charcoal, sans-serif;
-				font-size: 19px;
+				font-size: 16px;
 				border: none;
 				background: none;
 			}
 			.jump{
-				width: 180px;
-				font-size: 24px;
-				font-family: "Arial";
-				text-align: center;
-				font-weight: bold;
+				font-size: 14px;
 				line-height: 30px;
-				padding-top: 15px;
+				padding-top: 0px;
+				margin: 0 auto;
+			}
+			.jump button{
+				border: none;
+				background-color: #233;
+				color: white;
 			}
 			.hef{
 				text-decoration: none;
 				text-align: center;
-				font-size: 18px;
-				color: #876;
+				font-size: 14px;
+				color: #233;
 				padding-right: 4px;
-				font-weight: bold;
-				font-family: "Courier New";
 			}
 		</style>
 	</head>
@@ -343,19 +355,25 @@
 			Stats:
 			<div id="stat" class="stat">
 			</div>
-			<div id="add" class="add">Add new word:<br/>
+			<div id="add" class="add">
+				<img src="jump.png" width=180px></img>
+				Add new word:<br/>
 				<input type="text" id="add1_word"><br/>
 				Definition: <br/>
 				<textarea id="add1_def"></textarea><br/>
 				<button type="button" id="add_submit" onclick="addWord()">Submit</button>
 			</div>
-			<div id="jump" class="jump">
-			</div>
 		</div>
 		<div id="show" class="show"></div>
+		<div id="footer" class="footer">
+			<div id="jump" class="jump"></div> <div</div>
+			Barron 4759 Word Quiz Site.<br/>
+			Developed and maintained by ShaozeWang a.k.a. GDBZDNQL<br/>
+			Contact 8586995438 gdbzdnql@gmail.com	
+		</div>
 		<script>
 			var disp = "Total";
-			var limi = 33;
+			var limi = 30;
 			var action = "";
 			function extract(){
 				var a = window.location.href;
@@ -385,6 +403,7 @@
 			var arr3 = new Array();
 			var arr4 = new Array();
 			var co = 0;
+			var limitP = 10;
 			while(co < 61){
 				arr3[co] = 1;
 				co++;
@@ -414,29 +433,54 @@
 			}
 			function cutPage(total){
 				var divObj = document.getElementById('jump');
-				divObj.innerHTML = "<div id = 'pag' style='padding-top:5px;width: 190px; text-align: center'>Go to page:<br/></div>";
+				divObj.innerHTML = "<div id = 'pag' style='color:#233'>Page </div>";
 				var count = 1;
 				var divObj1 = document.getElementById('pag');
 				console.log(total);
-				while(count <= total){
-					if (count < 10){
-						tmp = '0' + count;
-						count = tmp;
-					}
-					if (count != extract()){	
-						divObj1.innerHTML += ("<a class='hef' href='/project/word_quiz_copy/frame.html?page="+count+"'>"+count);
-						divObj1.innerHTML += "</a>";
+				if (page < limitP){
+					var upper = 0;
+					if (limitP > total){
+						upper = total;
 					}
 					else{
-						divObj1.innerHTML += ("<a class='hef' style='color:#8B3' href='#'>"+count);
-						divObj1.innerHTML += "</a>";
+						upper = limitP;
 					}
-					if (count % 8 == 0){
-						divObj1.innerHTML += "<br/>";
+					while(count <= upper){
+						if (count != extract()){	
+							divObj1.innerHTML += ("<a class='hef' href='/project/word_quiz_copy/frame.html?page="+count+"'>"+count);
+							divObj1.innerHTML += "</a>";
+						}
+						else{
+							divObj1.innerHTML += ("<a class='hef' style='color:#8B3' href='#'>"+count);
+							divObj1.innerHTML += "</a>";
+						}
+						count++;
 					}
-					count++;
 				}
-				divObj1.innerHTML += "<br/>";
+				else{
+					if (extract() + Math.floor(limitP/2) <= total){
+						count = extract() - Math.floor(limitP/2);
+						console.log(count+" 1");
+					}
+					else{
+						count = total - limitP + 1;
+						console.log(count+" 2");
+					}
+
+					var step = 0;
+					while (step < 10){
+						if ((count+step) != extract()){	
+							divObj1.innerHTML += ("<a class='hef' href='/project/word_quiz_copy/frame.html?page="+(count+step)+"'>"+(count+step));
+							divObj1.innerHTML += "</a>";
+						}
+						else{
+							divObj1.innerHTML += ("<a class='hef' style='color:#8B3' href='#'>"+(count+step));
+							divObj1.innerHTML += "</a>";
+						}
+						step++;
+					}
+				}
+				divObj1.innerHTML += "<input style='width:35px' id='pJump' type='text'></input> <button>Go to</button><br/>";
 			}
 			function filter(curB){
 				disp = curB.innerHTML;
@@ -457,7 +501,7 @@
 					sttObj.innerHTML += "<button>Learned</button> <div>"+learned+" words</div>";
 				}
 				if (disp != 'Learned'){
-					sttObj.innerHTML += "<a target = '_blanks' href='filt.html?page=01'><button>Unlearned</button></a> <div style='color:red'>"+ (arr1.length - learned - 1) +" words</div>";
+					sttObj.innerHTML += "<a target = '_blanks' href='filt.html?page=01'> <button>Unlearned</button></a> <div style='color:red'>"+ (arr1.length - learned - 1) +" words</div>";
 				}
 						
 			}
@@ -465,7 +509,7 @@
 				var count = 0;
 				var leng = 0;
 				while (count < str.length){
-					if (str[count] == 'g' || str[count] == 'm'){
+					if (str[count] == 'g' || str[count] == 'm'||str[count] == 'c'){
 						leng += 1.5;
 					}
 					else{
@@ -626,12 +670,9 @@
 				show();				
 			}
 			function flipCard(divObj){
-				var sel = window.getSelection();
-				sel.removeAllRanges();
 				var count = 0;
 				var id = divObj.id;
 				var index = 0;
-				console.log(id);
 				while( count < id.length){
 					if (id[count] >= '0' && id[count] <= '9'){
 						index = index * 10 + (id[count] - '0');
@@ -639,7 +680,6 @@
 					count++;
 				}
 				index += pageE;
-				console.log(index);
 				if (arr3[index] == 0){
 					arr3[index] = 1;
 					divObj.style.background = '';
@@ -670,13 +710,11 @@
 				}
 			}
 			console.log("script!");
-			show();
 			co = 0;
-			while(co < 151){
+			while(co < 4759){
 				arr3[co] = 0;
 				co++;
 			}
-			show();
 			show();
 		</script>	
 	</body>

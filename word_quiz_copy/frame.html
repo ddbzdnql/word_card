@@ -2,10 +2,6 @@
 	<head>
 		<title>GREWord</title>
 		<style>
-			/*body{
-				background-image: url('bg1.png');
-				background-size: 150px;
-			}*/
 			@font-face {
 				font-family: 'Charlemagne Std Bold';
 				font-style: normal;
@@ -18,7 +14,7 @@
 				right: 0px;
 				left: 0px;
 				border: 5px solid #A54;
-				background-image: url('bg.jpg');
+				background-image: url('quiz_1_rep4.png');
 				background-size: 108px;
 				height: 80px;
 			}
@@ -91,6 +87,7 @@
 				height: 37px;
 				color: #EEE;
 				font-weight: bold;
+				text-shadow: 8px 8px 5px black;
 			}
 			.navg{
 				color: #AAA;
@@ -105,6 +102,12 @@
 				color: #EEE;
 				font-weight: bold;
 				padding-right: 10px;
+				text-shadow: 5px 5px 3px black;
+			}
+			.navg ul li a{
+				text-decoration: none;
+				color: white;
+				text-shadow: 5px 5px 3px black;
 			}
 			.show{
 				padding-top: 100px;
@@ -347,7 +350,7 @@
 				BR-4759 MANUAL PAGE
 			</div>
 			<div class="navg"><ul>
-					<li>Home  </li><li>Quiz  </li><li>Debug  </li>
+					<li><a href="#">Home  </a></li><li><a href="quiz_frame.html">Quiz </a></li><li>Debug  </li>
 				</ul>
 			</div>
 		</div>
@@ -598,7 +601,11 @@
 						if (act == "init"){
 							arr4 = res.split("SPLIT");
 							var i = 0;
-						}		
+						}	
+						if (action == "add" || action == "del"){
+							console.log("chained");
+							show();
+						}	
 										
 					}
 				}
@@ -638,8 +645,6 @@
 				cutPage(leg);
 				action = "del";
 				showRequest("del&word="+word);
-				show();
-				show();
 			}
 			function addWord(){
 				var word = document.getElementById('add1_word').value;
@@ -666,8 +671,6 @@
 				document.getElementById('add1_word').value = "";
 				document.getElementById('add1_def').value = "";
 				showRequest(tosen);
-				show();
-				show();				
 			}
 			function flipCard(divObj){
 				var count = 0;

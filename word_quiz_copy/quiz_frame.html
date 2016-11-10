@@ -1,0 +1,341 @@
+<html>
+	<head>
+		<title>GREWord-Quiz</title>
+		<style>
+			@font-face {
+				font-family: 'Charlemagne Std Bold';
+				font-style: normal;
+				font-weight: normal;
+				src: local('Charlemagne Std Bold'), url('CharlemagneStd-Bold.woff') format('woff');
+			}		
+			.header{
+				position: fixed;
+				top: 0px;
+				right: 0px;
+				left: 0px;
+				border: 5px solid #A54;
+				background-image: url('quiz_1_rep4.png');
+				background-size: 108px;
+				height: 80px;
+			}
+			.footer{
+				position: fixed;
+				height: 70px;
+				border-top: 1px solid #AAA;
+				bottom:0px;
+				left: 10px;
+				right: 10px;
+				background-color: white;
+				text-align: center;
+				display: inline-block;
+				font-size: 9px;
+				color: #888;
+				line-height: 11px;
+			}
+			.logo{
+				padding-top: 5px;
+				padding-left: 5px;
+				font-family: "Arial";
+				font-size: 37px;
+				height: 37px;
+				color: #EEE;
+				font-weight: bold;
+				text-shadow: 10px 10px 6px black;
+			}
+			.navg{
+				color: #AAA;
+			}
+			.navg ul{
+				list-style: none;
+				float: right;
+			}
+			.navg ul li a{
+				text-decoration: none;
+				color: white;
+				text-shadow: 5px 5px 3px black;
+			}
+			.navg ul li{
+				float: left;
+				list-style: none;
+				color: #EEE;
+				font-weight: bold;
+				padding-right: 10px;
+				text-shadow: 5px 5px 3px black;
+			}
+			.cont{
+				position: fixed;
+				top: 100px;
+				left: 20px;
+			}
+			.cont_ans{
+				position: fixed;
+				bottom: 80px;
+				left: 350px;
+			}
+			.sticker{
+				width: 310px;
+				height: 405px;
+				background-image: url('bg.jpg');
+				background-size: 95px;
+				background-position: center;
+				border: 2px solid black;
+				margin: 25 auto;
+			}
+			.sticker_ans{
+				position: relative;
+				display: inline-block;
+				width: 238px;
+				height: 310px;
+				border: 2px solid black;
+				margin: 10px;
+				background-image: url("quiz_2.png");
+				background-size: 74px;
+				background-position: center;
+				vertical-align: text-bottom;
+			}
+			.ans{
+				width: 230px;
+				height: 302px;
+				padding-top: 4px;
+				padding-bottom: 4px;
+				padding-right: 4px;
+				padding-left: 4px;
+				font-family: "Courier";
+				color: white;
+				text-shadow: 0 0 3px black;
+				font-weight: bold;
+				font-size: 21px;
+				margin: auto auto;
+				background-color: rgba(30,50,80,0.35);
+			}
+			/*.mask{
+				width: 238px;
+				height: 310px;
+				background-color: white;
+				opacity: 0.45;
+			}*/
+			.sticker button{
+				border: none;
+				font-family: "Arial";
+				font-size: 18px;
+				text-align: middle;
+				color: white;
+				background: none;
+				border: 1px solid white;
+			}
+			.content{
+				display: inline-block;
+				margin: 3px;
+				padding-left: 10px
+			}
+			.ques{
+				padding-left: 5px;
+				padding-top: 90px;
+				text-align: left;
+				font-family: "Arial";
+				font-weight: bold;
+				font-size: 47px;
+				line-height: 40px;
+				color: white;
+				-webkit-text-stroke-width: 1.5px;
+				-webkit-text-stroke-color: #555;	
+			}
+			.hint_bt{
+				padding-top: 200px;
+				margin: 0 auto;
+				padding-left: 15px;
+				display: none;
+			}
+			.hint_bt button{
+				text-decoration: none;
+				background-color: rgba(65,20,30, 0.67);
+				border: 1px solid white;
+				width: 190px;
+				height: 64px;
+				font-family: "Arial";
+				font-size: 28px;
+			}
+			.ques_mask{
+				width: 310px;
+				height: 405px;
+			}
+			.ans_bt{
+				z-index: 0;
+				position: absolute;
+				bottom: 10px;
+				left: 10px;
+				text-decoration: none;
+				background-color: rgba(30, 65, 20, 0.5);
+				border: none;
+				width: 125px;
+				height: 52px;
+				font-family: "Arial";
+				font-size: 26px;
+				border: 1px solid white;
+				color: white;
+				display: none;
+				margin: auto auto;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="header" class="header">
+			<div class="logo">
+				BR-4759 QUIZ PAGE
+			</div>
+			<div class="navg"><ul>
+					<li><a href="frame.html">Home </a></li><li><a href='#'>Quiz </a></li><li>Debug  </li>
+				</ul>
+			</div>
+		</div>
+		<div id="cont" class="cont">
+			<div id="ques" class="sticker" onmouseover="hint()" onmouseout="unhint()"></div>
+		</div>
+		<div id="footer" class="footer">
+			Barron 4759 Word Quiz Site.<br/>
+			Developed and maintained by ShaozeWang a.k.a. GDBZDNQL<br/>
+			Contact 8586995438 gdbzdnql@gmail.com	
+		</div>
+		<div id="ans" class="cont_ans">
+			<div id="ans0" class="sticker_ans"></div>
+			<div id="ans1" class="sticker_ans"></div>
+			<div id="ans2" class="sticker_ans"></div>
+			<div id="ans3" class="sticker_ans"></div>
+		</div>
+		<script>
+			var position = "quiz";
+			var start = 0;
+			var a = new Array();
+			var flag = 0;
+			var length = 0;
+			var order = "order";
+			var trans = "to";
+			function init(){
+				count();
+				while(length == 0);
+				if (order == "rand"){
+					start = Math.floor(Math.random()*length);
+				}
+				var cnt_mn_1 = 0;
+				a[cnt_mn_1] = start;
+				cnt_mn_1++;
+				while(cnt_mn_1 < 4){
+					var tmp_mn_1 = Math.floor(Math.random()*length);
+					var flag = 1, cnt_mn_2 = 0;
+					while(cnt_mn_2 < cnt_mn_1){
+						if (tmp_mn_1 == a[cnt_mn_2]){
+							flag == 0;
+						}
+						cnt_mn_2 ++;
+					}
+					if (flag==1){
+						a[cnt_mn_1] = tmp_mn_1;
+						cnt_mn_1++;
+					}
+				
+				}
+				extract();
+				while(flag == 0);
+				var divObj = document.getElementById('ques');
+				divObj.innerHTML = "<div class='ques_mask' id='ques_mask'><div class='ques' id='ques_c'>"+a[0][0].toUpperCase()+a[0].slice(1)+"</div><div class='hint_bt' id='hint_bt'><button>Show answer</button></div></div>";
+				var cnt_mn_3 = 0;
+				while(cnt_mn_3 < 4){
+					divObj = document.getElementById('ans'+cnt_mn_3);
+					var tmp_mn_2 = a[cnt_mn_3];
+					divObj.innerHTML = "<div class='ans' onmouseover='choose(this,"+cnt_mn_3+")' onmouseout='unchoose(this,"+cnt_mn_3+")'>"+tmp_mn_2[0].toUpperCase()+tmp_mn_2.slice(1)+"<button class='ans_bt' id='ans_bt"+cnt_mn_3+"'>Choose</button></div>";
+					cnt_mn_3 ++;
+				}
+			}
+			function choose(divObj, id){
+				btObj = document.getElementById('ans_bt'+id);
+				btObj.style.display = "block";
+				//divObj.style.background = "rgba(30,50,80,0.57)";
+				console.log("enter"+divObj.style.background);
+			}
+			function unchoose(divObj, id){
+				btObj = document.getElementById('ans_bt'+id);
+				btObj.style.display = "none";				
+				//divObj.style.background = "rgba(30,50,80,0.35)";
+				console.log("exit"+divObj.style.background);
+			}
+			function hint(parObj){
+				maskObj = document.getElementById('ques_mask');
+				//maskObj.style.background = "rgba(87,40,40,0.4)";
+				divObj = document.getElementById('hint_bt');
+				divObj.style.display = "block";
+			}
+			function unhint(parObj){
+				maskObj = document.getElementById('ques_mask');
+				//maskObj.style.background = "none";
+				divObj = document.getElementById('hint_bt');
+				divObj.style.display = "none";
+			}
+			function ajaxHandler(act, addition=""){
+				var ajaxConn = generateRequest();
+				var res = "";
+				ajaxConn.onreadystatechange = function(){
+					console.log(this.readyState+" "+this.status);
+					if (this.readyState == 4 && this.status == 200){
+						res = this.responseText;
+						if (act == "count"){
+							length = res;
+						}
+						if (act == "get"){
+							a = res.split('SPLIT');
+							flag = 1;
+						}
+						if (act == "save"){
+		
+						}
+					}
+				}
+				str = "response.inc.php?page="+position+"&act="+act;
+				if (addition != ""){
+					str += "&"+addition;
+				}
+				console.log(str);
+				ajaxConn.open("GET", str, false);
+				ajaxConn.send();
+			}
+			function generateRequest(){
+				var toRet;
+				try{
+					toRet = new XMLHttpRequest();
+				}
+				catch(e1){
+					try{
+						toRet = new ActiveXObject("Msxm12.XMLHTTP");
+					}
+					catch(e2){
+						try{
+							toRet = new ActiveXObject("Microsoft.XMLHTTP");
+						}
+						catch(e3){
+							toRet = false;
+						}
+					}
+				}
+				return toRet;
+			}
+			function extract(){
+				var cnt_ext_1 = 0;
+				var para_ext_1 = "";
+				while(cnt_ext_1 < 4){
+					para_ext_1 += "&a"+(cnt_ext_1)+"="+a[cnt_ext_1];
+					cnt_ext_1++;		
+				}
+				para_ext_1 += "&trans="+trans;
+				ajaxHandler("get", para_ext_1);
+			}
+			function count(){
+				ajaxHandler("count");
+			}
+			init();
+			console.log(start);
+			console.log(a[0]);
+			console.log(a[1]);
+			console.log(a[2]);	
+			console.log(a[3]);
+		</script>
+	</body>
+</html>

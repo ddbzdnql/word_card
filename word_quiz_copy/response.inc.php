@@ -133,7 +133,45 @@ if ($_GET['page'] == 'main'){
 }
 
 if ($_GET['page'] == 'quiz'){
-
+	if ($_GET['act'] == "count"){
+		$query = "SELECT count(*) FROM gre;";
+		$res = $conn -> query($query);
+		if ($res){
+			$retArr = mysqli_fetch_array($res, MYSQLI_NUM);
+		}
+		else{
+			$retArr = "connection failed.";
+		}
+		echo $retArr[0];
+	}
+	if ($_GET['act'] == "get"){
+		$a = [];
+		$i = 0;
+		while($i < 4){
+			$a[] = sanitize($_GET["a$i"]);
+			$i++;
+		}
+		$query = "";
+		if ($_GET['trans'] == 'from'){
+			$query .= "SELECT word FROM gre ";
+		}
+		else{
+			$query .= "SELECT definition FROM gre ";
+		}
+		$i = 0;
+		$toRet = "";
+		while($i < 4){
+			$tmp = $a[$i];
+			$newQuery = "";
+			$newQuery .= $query."LIMIT $tmp, 1;";
+			$res = $conn -> query($newQuery);
+			while(list($single) = mysqli_fetch_array($res, MYSQLI_NUM)){
+				$toRet .= $single."SPLIT";
+			}
+			$i++;
+		}
+		echo $toRet;
+	}
 }
 
 

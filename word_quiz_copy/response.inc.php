@@ -152,11 +152,15 @@ if ($_GET['page'] == 'quiz'){
 			$i++;
 		}
 		$query = "";
+		$lastQ = "";
+		$key = $a[0];
 		if ($_GET['trans'] == 'from'){
 			$query .= "SELECT word FROM gre ";
+			$lastQ .= "SELECT definiton FROM gre LIMIT $key, 1";  
 		}
 		else{
 			$query .= "SELECT definition FROM gre ";
+			$lastQ .= "SELECT word FROM gre LIMIT $key,1";
 		}
 		$i = 0;
 		$toRet = "";
@@ -170,6 +174,16 @@ if ($_GET['page'] == 'quiz'){
 			}
 			$i++;
 		}
+		$res = $conn -> query($lastQ);
+		list($lastKey) = mysqli_fetch_array($res, MYSQLI_NUM);
+		$toRet .= $lastKey;
+		echo $toRet;
+	}
+	if ($_GET['act'] == 'ret'){
+		$word = sanitize($_GET['word']);
+		$query = "SELECT definition FROM gre WHERE word='$word';";
+		$res = $conn -> query($query);
+		list($toRet) = mysqli_fetch_array($res, MYSQLI_NUM);
 		echo $toRet;
 	}
 }

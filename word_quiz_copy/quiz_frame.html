@@ -2,6 +2,12 @@
 	<head>
 		<title>GREWord-Quiz</title>
 		<style>
+			body{
+				-webkit-user-select: none; /* webkit (safari, chrome) browsers */
+				-moz-user-select: none; /* mozilla browsers */
+				-khtml-user-select: none; /* webkit (konqueror) browsers */
+				-ms-user-select: none; /* IE10+ */
+			}
 			@font-face {
 				font-family: 'Charlemagne Std Bold';
 				font-style: normal;
@@ -14,207 +20,347 @@
 				right: 0px;
 				left: 0px;
 				border: 5px solid #A54;
-				background-image: url('quiz_1_rep4.png');
+				background-image: url('bg.jpg');
 				background-size: 108px;
 				height: 80px;
 			}
 			.footer{
 				position: fixed;
-				height: 70px;
-				border-top: 1px solid #AAA;
+				height: 40px;
 				bottom:0px;
 				left: 10px;
 				right: 10px;
-				background-color: white;
-				text-align: center;
-				display: inline-block;
-				font-size: 9px;
-				color: #888;
+				font-size: 8px;
+				color: #AAA;
 				line-height: 11px;
 			}
-			.logo{
-				padding-top: 5px;
-				padding-left: 5px;
-				font-family: "Arial";
-				font-size: 37px;
-				height: 37px;
-				color: #EEE;
-				font-weight: bold;
-				text-shadow: 10px 10px 6px black;
+			.footer span{
+				text-align: center;
+				position: absolute;
+				bottom:3px;
+				left: 0px;
+				right: 0px;
 			}
-			.navg{
-				color: #AAA;
-			}
-			.navg ul{
-				list-style: none;
-				float: right;
-			}
-			.navg ul li a{
-				text-decoration: none;
+			.console{
+				position: absolute;
+				right: 0px;
+				top: 42px;
+				left: 0px;
+				bottom: 0px;
+				border: 2px solid #666;
 				color: white;
-				text-shadow: 5px 5px 3px black;
+				font-family: "Courier New"; 
+				font-size:18px;
+				background-color: #2A2A2A;
+				padding-left: 20px;
 			}
-			.navg ul li{
-				float: left;
-				list-style: none;
-				color: #EEE;
-				font-weight: bold;
-				padding-right: 10px;
-				text-shadow: 5px 5px 3px black;
-			}
-			.cont{
-				position: fixed;
-				top: 100px;
-				left: 20px;
-			}
-			.cont_ans{
-				position: fixed;
-				bottom: 80px;
-				left: 350px;
-			}
-			.sticker{
-				width: 310px;
-				height: 405px;
-				background-image: url('bg.jpg');
-				background-size: 95px;
-				background-position: center;
-				border: 2px solid black;
-				margin: 25 auto;
-			}
-			.sticker_ans{
-				position: relative;
+			.console p{
 				display: inline-block;
-				width: 238px;
-				height: 310px;
-				border: 2px solid black;
-				margin: 10px;
-				background-image: url("quiz_2.png");
-				background-size: 74px;
-				background-position: center;
-				vertical-align: text-bottom;
+				width: 155px;
+				font-size: 11px;
+				padding-top: 0px;
 			}
-			.ans{
-				width: 230px;
-				height: 302px;
-				padding-top: 4px;
-				padding-bottom: 4px;
-				padding-right: 4px;
-				padding-left: 4px;
-				font-family: "Courier";
-				color: white;
-				text-shadow: 0 0 3px black;
-				font-weight: bold;
-				font-size: 21px;
-				margin: auto auto;
-				background-color: rgba(30,50,80,0.35);
+			.swt_cont{
+				position: absolute;
+				top: 0px;
+				margin: 0 auto;
+				height: 25px;
+				left: 15px;
 			}
-			/*.mask{
-				width: 238px;
-				height: 310px;
-				background-color: white;
-				opacity: 0.45;
-			}*/
-			.sticker button{
-				border: none;
-				font-family: "Arial";
-				font-size: 18px;
-				text-align: middle;
-				color: white;
-				background: none;
-				border: 1px solid white;
+			.swt_r_cont{
+				position: absolute;
+				top: 0px;
+				margin: 0 auto;
+				height: 25px;
+				right: 15px;
 			}
-			.content{
+			.swt_m_cont{
+				position: fixed;
+				top: 30px;
+				left: 0px;
+				right: 0px;
+			}
+			.whole{
+				position: fixed;
+				top: 30px;
+				right: 40px;
+				left: 40px;
+				bottom: 90px;
+			}
+			.swt_l{
 				display: inline-block;
-				margin: 3px;
-				padding-left: 10px
+				font-family: "Arial";
+				font-size: 22px;
+				border: 2px solid #666;
+				border-bottom: none;
+				width: 100px;
+				height: 34px;
+				text-align: center;
+				padding-top: 8px;
+				color: white;
+				background-color: #2A2A2A;
+				font-weight: bold;
+			}
+			.swt_r{
+				display: inline-block;
+				font-family: "Arial";
+				font-size: 22px;
+				border: 2px solid #666;
+				border-bottom: none;
+				width: 100px;
+				height: 34px;
+				text-align: center;
+				padding-top: 8px;
+				font-weight: bold;
+			}
+			.swt_l_m{
+				display: inline-block;
+				font-family: "Arial";
+				font-size: 22px;
+				border: 2px solid #777;
+				border-bottom: none;
+				width: 100px;
+				height: 32px;
+				text-align: center;
+				padding-top: 8px;
+				color: white;
+				background-color: #2A2A2A;
+				margin: 0 auto;
+			}
+			.swt_r_m{
+				display: inline-block;
+				font-family: "Arial";
+				font-size: 22px;
+				border: 2px solid #777;
+				border-bottom: none;
+				width: 100px;
+				height: 32px;
+				text-align: center;
+				padding-top: 8px;
+				margin: 0 auto;
 			}
 			.ques{
+				position: absolute;
+				top: 15px;
+				right: 25px;
+				left: 30px;
+				height: 44px;
+			}
+			.ans_cont{
+				position: absolute;
+				top: 100px;
+				right: 25px;
+				left: 25px;
+				font-family: 20px;
+			}
+			.ans{
+				padding-top: 16px;
 				padding-left: 5px;
-				padding-top: 90px;
-				text-align: left;
-				font-family: "Arial";
-				font-weight: bold;
-				font-size: 47px;
-				line-height: 40px;
-				color: white;
-				-webkit-text-stroke-width: 1.5px;
-				-webkit-text-stroke-color: #555;	
+				padding-bottom: 16px;
+				margin: 5px;
+				font-size: 18px;
+				font-family: "Courier New";
 			}
-			.hint_bt{
-				padding-top: 200px;
-				margin: 0 auto;
-				padding-left: 15px;
-				display: none;
+			.ques_cont{
+				font-family: "Charlemagne Std Bold";
+				padding-top: 11px;
+				font-size: 40px;
+				padding-left: 60px;
 			}
-			.hint_bt button{
+			.ques_cont button{
+				position: absolute;
+				right: 7px;
+				top: 27px;
 				text-decoration: none;
-				background-color: rgba(65,20,30, 0.67);
-				border: 1px solid white;
-				width: 190px;
-				height: 64px;
+				background: rgba(160, 90, 90, 0.45);
+				width: 225px;
+				height: 46px;
+				border: 1px solid black;
 				font-family: "Arial";
 				font-size: 28px;
-			}
-			.ques_mask{
-				width: 310px;
-				height: 405px;
-			}
-			.ans_bt{
-				z-index: 0;
-				position: absolute;
-				bottom: 10px;
-				left: 10px;
-				text-decoration: none;
-				background-color: rgba(30, 65, 20, 0.5);
-				border: none;
-				width: 125px;
-				height: 52px;
-				font-family: "Arial";
-				font-size: 26px;
-				border: 1px solid white;
-				color: white;
+				font-weight: bold;
 				display: none;
-				margin: auto auto;
+			}
+			.ans_content{
+				display: inline-block;
+				font-size: 18px;
+				padding-left: 15px;
+			}
+			.inli_div{
+				vertical-alignment: text-top;
+				display: inline-block;
+				width: 137px;
+				height: 12px;
+				font-size: 15px;
+				padding-top: 5px;
+				padding-bottom: 5px;
+				padding-left: 3px;
+				margin: 0 0;
+			}
+			.retest{
+				display: inline-block;
+				width: 137px;
+				height: 12px;
+				font-size: 15px;
+				padding-top: 5px;
+				padding-bottom: 5px;
+				padding-left: 3px;
+				background: rgba(40,40,40, 0.6);
+				color: black;
+			}
+			.histo{
+				position: absolute;
+				left: 35px;
+				top:400px;
+				right: 35px;
+				bottom: 32px;
+				padding-top: 7px;
+				padding-left: 10px;
+				line-height: 12px;
+				background-color: rgba(80,80,80, 0.5);
+			}
+			.def_span{
+				position: absolute;
+				bottom: 3px;
+				font-size: 13px;
+				display: none;
+			}
+			.stats{
+				position: absolute;
+				left: 35px;
+				top:400px;
+				right: 35px;
+				bottom: 32px;
+				padding-top: 7px;
+				padding-left: 10px;
+				line-height: 20px;
+				background-color: rgba(80,80,80, 0.5);
+			}
+			.jump{
+				position: absolute;
+				bottom: -40px;
+				left: 15px;
+				width: 215px;
+				height: 33px;
+				border: 2px solid #666;
+				border-top: none;
+				background-color: #2A2A2A;
+				padding-top: 7px;
+				padding-left: 5px;
+				font-family: "Arial";
+				color: white;
+				font-size: 20px;
+			}
+			.jump input{
+				height: 26px;
+				font-size: 20px;
+				width: 55px;
+				color: black;
+			}
+			.jump button{
+				height: 26px;
+				width: 90px;
+				border: none;
+				background: rgba(150,150,150, 0.4);
+				text-decoration: none;	
+				font-family: "Arial";
+				font-size: 20px;
+				color: white;
+				font-weight: bold;
 			}
 		</style>
 	</head>
 	<body>
-		<div id="header" class="header">
-			<div class="logo">
-				BR-4759 QUIZ PAGE
-			</div>
-			<div class="navg"><ul>
-					<li><a href="frame.html">Home </a></li><li><a href='#'>Quiz </a></li><li>Debug  </li>
-				</ul>
-			</div>
-		</div>
-		<div id="cont" class="cont">
-			<div id="ques" class="sticker" onmouseover="hint()" onmouseout="unhint()"></div>
-		</div>
-		<div id="footer" class="footer">
+		<div id="footer" class="footer"><span>
 			Barron 4759 Word Quiz Site.<br/>
 			Developed and maintained by ShaozeWang a.k.a. GDBZDNQL<br/>
-			Contact 8586995438 gdbzdnql@gmail.com	
+			Contact 8586995438 gdbzdnql@gmail.com
+			</span>	
 		</div>
-		<div id="ans" class="cont_ans">
-			<div id="ans0" class="sticker_ans"></div>
-			<div id="ans1" class="sticker_ans"></div>
-			<div id="ans2" class="sticker_ans"></div>
-			<div id="ans3" class="sticker_ans"></div>
+		<div class="whole">
+			<div id="console" class="console">
+				<div id="histo" class="histo"><br/></div>
+				<div id="ques" class="ques">
+					Word:
+					<div id="ques_cont" class="ques_cont" onmouseover="hint()" onmouseout="unhint()">
+					</div>
+				</div>
+				<div class="ans_cont">
+					<div id="ans_0" class="ans" onmouseover="choose(this)" onmouseout="unchoose(this)" onclick="verify(this)">
+						A:
+					</div>
+					<div id="ans_1" class="ans" onmouseover="choose(this)" onmouseout="unchoose(this)" onclick="verify(this)">
+						B:
+					</div>
+					<div id="ans_2" class="ans" onmouseover="choose(this)" onmouseout="unchoose(this)" onclick="verify(this)">
+						C:
+					</div>
+					<div id="ans_3" class="ans" onmouseover="choose(this)" onmouseout="unchoose(this)" onclick="verify(this)">
+						D:
+					</div>
+				</div>
+			</div>
+			<div id = "swt_cont" class="swt_cont">
+				<div id="ord_swt" class="swt_l" onclick="mode(this)">
+					Ordered
+				</div>
+				<div id="ran_swt" class="swt_r" onclick="mode(this)">
+					Random
+				</div>
+			</div>
+			<div id = "swt_r_cont" class="swt_r_cont">
+				<div id="hist_swt" class="swt_r" onclick="info(this)">
+					History
+				</div>
+				<div id="stat_swt" class="swt_l" onclick="info(this)">
+					Stats
+				</div>
+			</div>
+			<div id="swt_m_cont" class="swt_m_cont" style="display: none">
+				<div style="margin: 0 auto">
+				<div id="home_swt" class="swt_l">
+					Home
+				</div>
+				<div id="quiz_swt" class="swt_r">
+					Quiz
+				</div>
+				</div>
+			</div>
+			<div id="jump" class="jump">
+			</div>
 		</div>
 		<script>
+			var histLimit = 36;
+			var prev = "";
+			var histD = new Object();
+			var base = 0;
+			var logType = "stat";
+			var hist = new Array();
+			var total = 0;
 			var position = "quiz";
-			var start = 0;
+			var start = base;
 			var a = new Array();
 			var flag = 0;
 			var length = 0;
 			var order = "order";
 			var trans = "to";
+			var countR = 0;
+			var countW = 0;
+			var ans = -1;
+			var stage = 0;
+			var startInd = [start];
+			var def = "";
 			function init(){
 				count();
 				while(length == 0);
+				document.getElementById('jump').innerHTML = "<input type='text' id='page'></input> /"+length+" <button onclick='jump()'>Jump</button>";
 				if (order == "rand"){
-					start = Math.floor(Math.random()*length);
+					var tmp = start;
+					while(validate(tmp) == 0){
+						tmp = Math.floor(Math.random()*length);
+					}
+					start = tmp;
+					startInd[startInd.length] = tmp;
 				}
 				var cnt_mn_1 = 0;
 				a[cnt_mn_1] = start;
@@ -237,44 +383,198 @@
 				extract();
 				while(flag == 0);
 				var divObj = document.getElementById('ques');
-				divObj.innerHTML = "<div class='ques_mask' id='ques_mask'><div class='ques' id='ques_c'>"+a[0][0].toUpperCase()+a[0].slice(1)+"</div><div class='hint_bt' id='hint_bt'><button>Show answer</button></div></div>";
 				var cnt_mn_3 = 0;
+				var tk_mn_1 = [0,0,0,0];
 				while(cnt_mn_3 < 4){
-					divObj = document.getElementById('ans'+cnt_mn_3);
-					var tmp_mn_2 = a[cnt_mn_3];
-					divObj.innerHTML = "<div class='ans' onmouseover='choose(this,"+cnt_mn_3+")' onmouseout='unchoose(this,"+cnt_mn_3+")'>"+tmp_mn_2[0].toUpperCase()+tmp_mn_2.slice(1)+"<button class='ans_bt' id='ans_bt"+cnt_mn_3+"'>Choose</button></div>";
-					cnt_mn_3 ++;
+					var id = "ans_"+cnt_mn_3;
+					var tmp_ini_1 = Math.floor(Math.random()*4);
+					while(tk_mn_1[tmp_ini_1] == 1){
+						tmp_ini_1 = Math.floor(Math.random()*4);
+						var id = "ans_"+cnt_mn_3;
+					}
+					tk_mn_1[tmp_ini_1] = 1;
+					if (tmp_ini_1 == 0){
+						ans = cnt_mn_3;
+					}
+					var divObj = document.getElementById(id);
+					divObj.innerHTML = "Def "+(cnt_mn_3+1)+": "+a[tmp_ini_1];
+					cnt_mn_3++;
+				}
+				document.getElementById('ques_cont').innerHTML = a[4]+".<button id='hint_bt' onclick='show()'>Show answer</button>";
+			}
+			function mode(obj){
+				obj.style.background = "#2A2A2A";
+				obj.style.color = "white";
+				if (obj.id=="ord_swt"){
+					document.getElementById('ran_swt').style.background = "white";
+					document.getElementById('ran_swt').style.color = "#2A2A2A";
+					order = "ord";
+				}
+				if (obj.id=="ran_swt"){
+					document.getElementById('ord_swt').style.background = "white";
+					document.getElementById('ord_swt').style.color = "#2A2A2A";
+					order = "rand";
 				}
 			}
-			function choose(divObj, id){
-				btObj = document.getElementById('ans_bt'+id);
-				btObj.style.display = "block";
-				//divObj.style.background = "rgba(30,50,80,0.57)";
-				console.log("enter"+divObj.style.background);
+			function info(divObj){
+				if (divObj.id == "hist_swt"){
+					if (hist.length > 1){
+						document.getElementById('stat_swt').style.background = "white";
+						document.getElementById('stat_swt').style.color = "#2A2A2A";
+						logType = "hist";
+						divObj.style.background = "#2A2A2A";
+						divObj.style.color = "white";
+					}
+				}
+				else{
+					document.getElementById('hist_swt').style.background = "white";
+					document.getElementById('hist_swt').style.color = "#2A2A2A";
+					logType = "stat";
+					divObj.style.background = "#2A2A2A";
+					divObj.style.color = "white";
+				}
+				log();
 			}
-			function unchoose(divObj, id){
-				btObj = document.getElementById('ans_bt'+id);
-				btObj.style.display = "none";				
-				//divObj.style.background = "rgba(30,50,80,0.35)";
-				console.log("exit"+divObj.style.background);
+			function show(){
+				if (stage == 0){
+					divObj = document.getElementById('ans_'+ans);
+					divObj.style.color = "#C35";
+					document.getElementById('hint_bt').innerHTML = "Next One";
+					stage = 1;
+					hist[hist.length-1] += '0';
+					return 0;
+				}
+				else{
+					stage = 0;
+					unhint();
+					divObj = document.getElementById('ans_'+ans);
+					divObj.style.color = "white";
+					if (order != "rand"){
+						start ++;
+					}
+					result(-1);
+					init();
+					log();
+				}
 			}
-			function hint(parObj){
-				maskObj = document.getElementById('ques_mask');
-				//maskObj.style.background = "rgba(87,40,40,0.4)";
-				divObj = document.getElementById('hint_bt');
-				divObj.style.display = "block";
+			function validate(val){
+				var cnt_val_1 = 0;
+				while(cnt_val_1 < startInd.length){
+					if (startInd[cnt_val_1] == val){
+						return 0;
+					}
+					cnt_val_1++;
+				}
+				return 1;
 			}
-			function unhint(parObj){
-				maskObj = document.getElementById('ques_mask');
-				//maskObj.style.background = "none";
-				divObj = document.getElementById('hint_bt');
-				divObj.style.display = "none";
+			function verify(index){
+				if (stage == 0){
+					console.log(index.id[index.id.length-1]);
+					if (index.id[index.id.length-1] == ans){
+						result(1);
+						hist[hist.length-1] += '1';
+						log();
+					}
+					else{
+						result(0);
+						hist[hist.length-1] += '0';
+						log();
+					}
+					if (order != "rand"){
+						start ++;
+						if (start == length){
+							start = 0;
+						}
+						startInd[startInd.length] = start;
+					}
+						init();
+				}
+			}
+			function result(outcome){
+				if (outcome == 0){
+					countW ++;
+					window.alert("Wrong\n"+a[4][0].toUpperCase()+a[4].slice(1)+":\n"+a[0][0].toUpperCase()+a[0].slice(1)+"\nCurrent "+countR+" right, "+countW+" wrong.");
+				}
+				if (outcome == 1){
+					countR ++;
+					window.alert("Correct\n"+a[4][0].toUpperCase()+a[4].slice(1)+":\n"+a[0][0].toUpperCase()+a[0].slice(1)+"\nCurrent "+countR+" right, "+countW+" wrong.");
+				}
+				if (outcome == -1){
+					countW ++;
+					window.alert("Skipped\n"+a[4][0].toUpperCase()+a[4].slice(1)+":\n"+a[0][0].toUpperCase()+a[0].slice(1)+"\nCurrent "+countR+" right, "+countW+" wrong.");
+				}
+			}
+			function log(){
+				if (logType == "hist" && hist.length > 1){
+					document.getElementById('histo').className = "histo";
+					document.getElementById('histo').style.lineheight = "12px";
+					var cnt_lg_1 = 0;
+					if (hist.length > histLimit){
+						cnt_lg_1 = hist.length - histLimit;
+					}
+					console.log(hist);
+					document.getElementById('histo').innerHTML = "History<br/><br/>";
+					while(cnt_lg_1 < hist.length){
+						var tmp_lg_1 = hist[cnt_lg_1];
+							console.log(tmp_lg_1.slice(0, tmp_lg_1.length-1)+" "+tmp_lg_1[tmp_lg_1.length-1]);
+							if (tmp_lg_1[tmp_lg_1.length-1] == "1"){
+								document.getElementById('histo').innerHTML += "<div class='inli_div' onmouseenter='retest(this)' onmouseout='recover(this)' style='color: #94F'>"+tmp_lg_1.slice(0,tmp_lg_1.length-1)+"</div>";
+							}
+							if (tmp_lg_1[tmp_lg_1.length-1] == "0"){
+								document.getElementById('histo').innerHTML += "<div class='inli_div' onmouseenter='retest(this)' onmouseout='recover(this)'style='color: #C35'>"+tmp_lg_1.slice(0,tmp_lg_1.length-1)+"</div>";
+							}
+						cnt_lg_1++;
+					}
+					document.getElementById('histo').innerHTML += "<div id='def_span' class='def_span'></div>";
+				}
+				else{
+					document.getElementById('histo').className = "stats";
+					document.getElementById('histo').innerHTML = "Stats<br/>Total "+length+" words<br/>"
+					+(countR+countW)+" tested.<br/>"+countR+" right, "+countW+" wrong.";
+				}
+			}
+			function retest(oObj){
+				oObj.className = "retest";
+				document.getElementById('def_span').innerHTML = histD[oObj.innerHTML][0].toUpperCase()+histD[oObj.innerHTML].slice(1)+".";
+				document.getElementById('def_span').style.display = "block";
+			}
+			function recover(oObj){
+				oObj.className = "inli_div";
+				document.getElementById('def_span').innerHTML = "";
+				document.getElementById('def_span').style.display = "none";		
+			}
+			function choose(divObj){
+				if (stage == 0){
+					divObj.style.background = "rgba(110,110,200,0.4)";
+				}
+			}
+			function unchoose(divObj){
+				divObj.style.background = "";
+			}
+			function hint(){
+				document.getElementById('ques_cont').style.background = "rgba(130,35,35,0.5)";
+				document.getElementById('hint_bt').style.display = "block";
+			}
+			function unhint(){
+				document.getElementById('ques_cont').style.background = "";
+				document.getElementById('hint_bt').style.display = "none";
+			}
+			function jump(){
+				var inde = document.getElementById('page').value;
+				if (inde == parseInt(inde, 10) && parseInt(inde, 10) < length && parseInt(inde, 10) >= 0){
+					start = parseInt(inde, 10);
+					order = "ord";
+					init();	
+				}
+				else{
+					document.getElementById('page').value = "";
+					window.alert("Invalid word index");
+				}
 			}
 			function ajaxHandler(act, addition=""){
 				var ajaxConn = generateRequest();
 				var res = "";
 				ajaxConn.onreadystatechange = function(){
-					console.log(this.readyState+" "+this.status);
 					if (this.readyState == 4 && this.status == 200){
 						res = this.responseText;
 						if (act == "count"){
@@ -283,6 +583,9 @@
 						if (act == "get"){
 							a = res.split('SPLIT');
 							flag = 1;
+							hist[hist.length] = a[4];
+							histD[a[4]] = a[0];
+							console.log(histD);
 						}
 						if (act == "save"){
 		
@@ -293,7 +596,6 @@
 				if (addition != ""){
 					str += "&"+addition;
 				}
-				console.log(str);
 				ajaxConn.open("GET", str, false);
 				ajaxConn.send();
 			}
@@ -331,11 +633,7 @@
 				ajaxHandler("count");
 			}
 			init();
-			console.log(start);
-			console.log(a[0]);
-			console.log(a[1]);
-			console.log(a[2]);	
-			console.log(a[3]);
+			log();
 		</script>
 	</body>
 </html>

@@ -1,0 +1,475 @@
+<html>
+	<head>
+		<title>GREWord-Quiz</title>
+		<style>
+			body{
+			}
+			@font-face {
+				font-family: 'Charlemagne Std Bold';
+				font-style: normal;
+				font-weight: normal;
+				src: local('Charlemagne Std Bold'), url('CharlemagneStd-Bold.woff') format('woff');
+			}		
+			.header{
+				position: fixed;
+				top: 0px;
+				right: 0px;
+				left: 0px;
+				border: 5px solid #A54;
+				background-image: url('bg.jpg');
+				background-size: 108px;
+				height: 80px;
+			}
+			.footer{
+				position: fixed;
+				height: 70px;
+				border-top: 1px solid #AAA;
+				bottom:0px;
+				left: 10px;
+				right: 10px;
+				text-align: center;
+				display: inline-block;
+				font-size: 9px;
+				color: #888;
+				line-height: 11px;
+			}
+			.logo{
+				padding-top: 5px;
+				padding-left: 5px;
+				font-family: "Arial";
+				font-size: 37px;
+				height: 37px;
+				color: #EEE;
+				font-weight: bold;
+				text-shadow: 10px 10px 6px black;
+			}
+			.navg{
+				color: #AAA;
+			}
+			.navg ul{
+				list-style: none;
+				float: right;
+			}
+			.navg ul li a{
+				text-decoration: none;
+				color: white;
+				text-shadow: 5px 5px 3px black;
+			}
+			.navg ul li{
+				float: left;
+				list-style: none;
+				color: #EEE;
+				font-weight: bold;
+				padding-right: 10px;
+				text-shadow: 5px 5px 3px black;
+			}
+			.cont{
+				position: fixed;
+				top: 100px;
+				left: 20px;
+			}
+			.cont_ans{
+				position: fixed;
+				bottom: 80px;
+				left: 350px;
+			}
+			.sticker{
+				width: 310px;
+				height: 405px;
+				background-image: url('bg.jpg');
+				/*background-color: rgba(75,25,30, 0.5);*/
+				background-size: 95px;
+				background-position: center;
+				border: 2px solid black;
+				margin: 25 auto;
+			}
+			.sticker_ans{
+				position: relative;
+				display: inline-block;
+				width: 238px;
+				height: 310px;
+				border: 2px solid black;
+				margin: 10px;
+				background-image: url("bg.jpg");
+				/*background-color: rgba(30,75,25, 0.5);*/
+				background-size: 74px;
+				background-position: center;
+				vertical-align: text-bottom;
+				text-shadow: 2px 2px 1px black;
+			}
+			.ans{
+				width: 224px;
+				height: 271px;
+				padding-top: 35px;
+				padding-bottom: 4px;
+				padding-right: 7px;
+				padding-left: 7px;
+				font-family: "Courier New";
+				color: white;
+				font-weight: bold;
+				font-size: 21px;
+				margin: auto auto;
+				background-color: rgba(20,45,60,0.35);
+				letter-spacing: 2.5px;
+			}
+			/*.mask{
+				width: 238px;
+				height: 310px;
+				background-color: white;
+				opacity: 0.45;
+			}*/
+			.sticker button{
+				border: none;
+				font-family: "Arial";
+				font-size: 18px;
+				text-align: middle;
+				color: white;
+				background: none;
+				border: 1px solid white;
+			}
+			.content{
+				display: inline-block;
+				margin: 3px;
+				padding-left: 10px
+			}
+			.ques{
+				padding-left: 5px;
+				padding-top: 90px;
+				text-align: left;
+				font-family: "Courier New";
+				font-weight: bold;
+				font-size: 48px;
+				line-height: 40px;
+				width: 300px;
+				color: white;
+				-webkit-text-stroke-width: 1.5px;
+				-webkit-text-stroke-color: black;
+				text-shadow: 4px 4px 2px black;
+			}
+
+			.hint_bt{
+				padding-top: 200px;
+				margin: 0 auto;
+				padding-left: 15px;
+				display: none;
+			}
+			.hint_bt button{
+				text-decoration: none;
+				background-color: rgba(65,20,30, 0.67);
+				border: 1px solid white;
+				width: 190px;
+				height: 64px;
+				font-family: "Arial";
+				font-size: 28px;
+			}
+			.ques_mask{
+				width: 310px;
+				height: 405px;
+			}
+			.ans_bt{
+				z-index: 0;
+				position: absolute;
+				bottom: 10px;
+				left: 10px;
+				text-decoration: none;
+				background-color: rgba(65, 35, 25, 0.5);
+				border: none;
+				width: 125px;
+				height: 52px;
+				font-family: "Arial";
+				font-size: 26px;
+				border: 1px solid white;
+				color: white;
+				display: none;
+				margin: auto auto;
+			}
+			.switch{
+				position: fixed;
+				left: 15px;
+				bottom: 103px;
+				width: 350px;
+				height: 140px;
+				border: none;
+			}
+			.swt_bt{
+				display: inline-block;
+				text-decoration: none;
+				font-family: "Arial";
+				color: black;
+				font-size: 27px;
+				padding-top: 57px;
+				width: 145px;
+				height: 88px;
+				font-weight: bold;
+				text-align: center;
+				margin: 5px;
+				border: 2px solid black;
+			}
+			.console{
+				position: fixed;
+				right: 40px;
+				top: 125px;
+				width: 1010px;
+				height: 220px;
+				border: 2px solid #777;
+				color: white;
+				font-family: monaco, Consolas, "Lucida Console", monospace;
+				font-size:14px;
+				background-color: #222;
+				padding-top: 20px;
+				padding-left: 20px;
+			}
+			.console p{
+				display: inline-block;
+				width: 155px;
+				font-size: 11px;
+				padding-top: 0px;
+			}
+		</style>
+	</head>
+	<body>
+		/*<div id="header" class="header">
+			<div class="logo">
+				BR-4759 QUIZ PAGE
+			</div>
+			<div class="navg"><ul>
+					<li><a href="frame.html">Home </a></li><li><a href='#'>Quiz </a></li><li>Debug  </li>
+				</ul>
+			</div>
+		</div>*/
+		<div id="cont" class="cont">
+			<div id="ques" class="sticker" onmouseover="hint()" onmouseout="unhint()"></div>
+		</div>
+		<div id="footer" class="footer">
+			Barron 4759 Word Quiz Site.<br/>
+			Developed and maintained by ShaozeWang a.k.a. GDBZDNQL<br/>
+			Contact 8586995438 gdbzdnql@gmail.com	
+		</div>
+		<div id="ans" class="cont_ans">
+			<div id="ans0" class="sticker_ans"></div>
+			<div id="ans1" class="sticker_ans"></div>
+			<div id="ans2" class="sticker_ans"></div>
+			<div id="ans3" class="sticker_ans"></div>
+		</div>
+		<div id="console" class="console">
+			Words tested:<br/>
+		</div>
+		<div class="switch">
+				<div id="ord_swt" class="swt_bt" onclick="mode(this)">
+					Ordered
+				</div>
+				<div id="sav_swt" class="swt_bt" onclick="save()">
+					Save
+				</div>
+		</div>
+		<script>
+			var total = 0;
+			var position = "quiz";
+			var start = 100;
+			var a = new Array();
+			var flag = 0;
+			var length = 0;
+			var order = "order";
+			var trans = "to";
+			var countR = 0;
+			var countW = 0;
+			var ans = -1;
+			var step = 0;
+			function init(){
+				count();
+				while(length == 0);
+				if (order == "rand"){
+					var tmp = start;
+					while(tmp == start){
+						tmp = Math.floor(Math.random()*length);
+					}
+					start = tmp;
+				}
+				var cnt_mn_1 = 0;
+				a[cnt_mn_1] = start;
+				cnt_mn_1++;
+				while(cnt_mn_1 < 4){
+					var tmp_mn_1 = Math.floor(Math.random()*length);
+					var flag = 1, cnt_mn_2 = 0;
+					while(cnt_mn_2 < cnt_mn_1){
+						if (tmp_mn_1 == a[cnt_mn_2]){
+							flag == 0;
+						}
+						cnt_mn_2 ++;
+					}
+					if (flag==1){
+						a[cnt_mn_1] = tmp_mn_1;
+						cnt_mn_1++;
+					}
+				
+				}
+				extract();
+				while(flag == 0);
+				var divObj = document.getElementById('ques');
+				divObj.innerHTML = "<div class='ques_mask' id='ques_mask'><div class='ques' id='ques_c'>"+a[4][0].toUpperCase()+a[4].slice(1)+"</div><div class='hint_bt' id='hint_bt'><button id='ques_bt'onclick='show()' >Show answer</button></div></div>";
+				var cnt_mn_3 = 0;
+				var tk_mn_1 = [0,0,0,0];
+				while(cnt_mn_3 < 4){
+					divObj = document.getElementById('ans'+cnt_mn_3);
+					var tmp_mn_2 = Math.floor(Math.random()*4);
+					while (tk_mn_1[tmp_mn_2] == 1){
+						tmp_mn_2 = Math.floor(Math.random()*4);
+					}
+					tk_mn_1[tmp_mn_2] = 1;
+					if (tmp_mn_2 == 0){
+						ans = cnt_mn_3;
+					}
+					var tmp_mn_3 = a[tmp_mn_2];
+					divObj.innerHTML = "<div id='ans_c_"+cnt_mn_3+"'class='ans' onmouseover='choose(this,"+cnt_mn_3+")' onmouseout='unchoose(this,"+cnt_mn_3+")'>"+tmp_mn_3[0].toUpperCase()+tmp_mn_3.slice(1)+"<button onclick = 'verify("+cnt_mn_3+")'  class='ans_bt' id='ans_bt"+cnt_mn_3+"'>Choose</button></div>";
+					cnt_mn_3 ++;
+				}
+			}
+			function mode(obj){
+				if (obj.innerHTML .includes( "Ordered")){
+					obj.innerHTML = "Random";
+					order = "rand";
+				}
+				else{
+					obj.innerHTML = "Ordered";
+					order = "ordered";
+				}
+			}
+			function show(){
+				if (step == 0){
+					var divObj = document.getElementById('ans_c_'+ans);
+					divObj.style.color = "red";
+					step = 1;
+					var ansObj = document.getElementById('ques_bt');
+					ansObj.innerHTML = "Next one";
+					document.getElementById('console').innerHTML += "<p style='color:yellow'>"+a[4]+": skipped;</p>";
+					total ++;
+				}
+				else{
+					step = 0;
+					alert("Skipped.\n"+a[4][0].toUpperCase()+a[4].slice(1)+":\n\t"+a[0]+"\n"+"Currently "+countR+" right, "+countW+" wrong.");
+					if (order == "rand"){
+						init();
+					}
+					else{
+						start ++;
+						init();
+					}
+				}
+			}
+			function verify(index){
+				var divObj = document.getElementById('console');
+				if (index == ans){
+					countR ++;	
+					alert("Correct.\n"+a[4][0].toUpperCase()+a[4].slice(1)+":\n\t"+a[0][0].toUpperCase()+a[0].slice(1)+".\n"+"Currently "+countR+" right, "+countW+" wrong.");
+					divObj.innerHTML += "<p>"+a[4]+": correct;</p>";
+					total++;
+				}
+				else{
+					countW ++;
+					alert("Wrong.\n"+a[4][0].toUpperCase()+a[4].slice(1)+":\n\t"+a[0][0].toUpperCase()+a[0].slice(1)+".\n"+"Currently "+countR+" right, "+countW+" wrong.");
+					divObj.innerHTML += "<p style='color:red'>"+a[4]+": wrong;</p>";
+					total++;
+				}
+				if (order == "rand"){
+					init();
+				}
+				else{
+					start ++;
+					init();
+				}
+			}
+			function choose(divObj, id){
+				if (step == 0){
+					btObj = document.getElementById('ans_bt'+id);
+					btObj.style.display = "block";
+					//divObj.style.background = "rgba(30,50,80,0.57)";
+					console.log("enter"+divObj.style.background);
+				}
+			}
+			function unchoose(divObj, id){
+				btObj = document.getElementById('ans_bt'+id);
+				btObj.style.display = "none";				
+				//divObj.style.background = "rgba(30,50,80,0.35)";
+				console.log("exit"+divObj.style.background);
+			}
+			function hint(parObj){
+				maskObj = document.getElementById('ques_mask');
+				//maskObj.style.background = "rgba(87,40,40,0.4)";
+				divObj = document.getElementById('hint_bt');
+				divObj.style.display = "block";
+			}
+			function unhint(parObj){
+				maskObj = document.getElementById('ques_mask');
+				//maskObj.style.background = "none";
+				divObj = document.getElementById('hint_bt');
+				divObj.style.display = "none";
+			}
+			function ajaxHandler(act, addition=""){
+				var ajaxConn = generateRequest();
+				var res = "";
+				ajaxConn.onreadystatechange = function(){
+					console.log(this.readyState+" "+this.status);
+					if (this.readyState == 4 && this.status == 200){
+						res = this.responseText;
+						if (act == "count"){
+							length = res;
+						}
+						if (act == "get"){
+							a = res.split('SPLIT');
+							flag = 1;
+						}
+						if (act == "save"){
+		
+						}
+					}
+				}
+				str = "response.inc.php?page="+position+"&act="+act;
+				if (addition != ""){
+					str += "&"+addition;
+				}
+				console.log(str);
+				ajaxConn.open("GET", str, false);
+				ajaxConn.send();
+			}
+			function generateRequest(){
+				var toRet;
+				try{
+					toRet = new XMLHttpRequest();
+				}
+				catch(e1){
+					try{
+						toRet = new ActiveXObject("Msxm12.XMLHTTP");
+					}
+					catch(e2){
+						try{
+							toRet = new ActiveXObject("Microsoft.XMLHTTP");
+						}
+						catch(e3){
+							toRet = false;
+						}
+					}
+				}
+				return toRet;
+			}
+			function extract(){
+				var cnt_ext_1 = 0;
+				var para_ext_1 = "";
+				while(cnt_ext_1 < 4){
+					para_ext_1 += "&a"+(cnt_ext_1)+"="+a[cnt_ext_1];
+					cnt_ext_1++;		
+				}
+				para_ext_1 += "&trans="+trans;
+				ajaxHandler("get", para_ext_1);
+			}
+			function count(){
+				ajaxHandler("count");
+			}
+			init();
+			console.log(start);
+			console.log(a[0]);
+			console.log(a[1]);
+			console.log(a[2]);	
+			console.log(a[3]);
+		</script>
+	</body>
+</html>
